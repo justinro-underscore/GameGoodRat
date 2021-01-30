@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallingSpeed: 2
   hoveringDistance: 0.15
-  secondsSpentOnGround: 60
+  secondsSpentOnGround: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 256

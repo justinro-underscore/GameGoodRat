@@ -16,20 +16,25 @@ public class Item : MonoBehaviour {
     private enum State {
         FALLING,
         GROUNDED,
-        PICKED_UP
+        PICKED_UP,
+        DISAPPEARING
     };
 
     private Rigidbody2D rb2d;
+    private SpriteRenderer renderer;
     private State state;
 
     private Vector2 startFloatingPos = new Vector2();
     private float startFloatingTime = 0;
+
+    private float disappearTime;
 
     public LayerMask groundLayer;
     public Constants.Items itemTag;
 
     void Start() {
         rb2d = GetComponent<Rigidbody2D>();
+        renderer = GetComponent<SpriteRenderer>();
         state = State.FALLING;
         rb2d.velocity = new Vector2(0, -fallingSpeed);
     }
@@ -62,7 +67,9 @@ public class Item : MonoBehaviour {
         float timeSinceLanded = Time.fixedTime - startFloatingTime;
         rb2d.position = startFloatingPos + new Vector2(0, -hoveringDistance * Mathf.Sin(Mathf.PI * (timeSinceLanded)));
         if (timeSinceLanded > secondsSpentOnGround) {
-            Destroy(gameObject);
+            state = State.DISAPPEARING;
+            disappearTime = 1f;
+            Disappear();
         }
     }
 
@@ -70,7 +77,22 @@ public class Item : MonoBehaviour {
         rb2d.position = transform.parent.position;
     }
 
+    void Disappear() {
+        if (disappearTime < 0.05f) {
+            Destroy(gameObject);
+        }
+        float waitTime = 0.1f;
+        if (!renderer.enabled) {
+            disappearTime /= 1.5f;
+            waitTime = disappearTime;
+        }
+        renderer.enabled = !renderer.enabled;
+        Invoke("Disappear", waitTime);
+    }
+
     public void PickUpItem() {
+        CancelInvoke("Disappear");
+        renderer.enabled = true;
         state = State.PICKED_UP;
         rb2d.velocity = Vector2.zero;
     }
