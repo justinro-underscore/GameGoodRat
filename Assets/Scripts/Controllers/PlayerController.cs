@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 
     private float pickedUpItemTime = 0;
     private const float pickedUpItemDebounce = 0.2f;
-    private GameObject overItem = null;
+    private List<Collider2D> overItems;
     private GameObject collectedItem = null;
 
     public LayerMask groundLayer;
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 
     protected void Start() {
         rb2d = GetComponent<Rigidbody2D>();
+        overItems = new List<Collider2D>();
     }
 
 	void Update () {
@@ -67,9 +68,11 @@ public class PlayerController : MonoBehaviour {
 
     void CheckForPickUpOrDrop() {
         if (Input.GetKeyDown(KeyCode.E)) {
-            if (collectedItem == null && overItem != null) {
-                collectedItem = overItem;
-                overItem = null;
+            if (collectedItem == null && overItems.Count > 0) {
+                Collider2D collider = overItems[0];
+                overItems.Remove(collider);
+                overItems.Add(collider);
+                collectedItem = collider.gameObject;
                 (collectedItem.GetComponent<Item>() as Item).PickUpItem();
                 collectedItem.transform.parent = gameObject.transform;
                 pickedUpItemTime = Time.fixedTime;
@@ -86,9 +89,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D (Collider2D other) {
         if (other.gameObject.CompareTag("Item")) {
-            if (collectedItem == null && overItem == null) {
-                overItem = other.gameObject;
-            }
+            overItems.Add(other);
         }
         else if (other.gameObject.CompareTag("Leg")) {
             Debug.Log("Over Leg");
@@ -101,8 +102,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnTriggerExit2D (Collider2D other) {
-        if (overItem != null && other.gameObject.CompareTag("Item")) {
-            overItem = null;
+        if (other.gameObject.CompareTag("Item")) {
+            overItems.Remove(other);
         }
     }
 
