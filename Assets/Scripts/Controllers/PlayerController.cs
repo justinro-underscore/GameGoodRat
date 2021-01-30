@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
 
     public LayerMask groundLayer;
 
+    private bool isOnLeg = false;
+
     protected void Start() {
         rb2d = GetComponent<Rigidbody2D>();
     }
@@ -73,6 +75,16 @@ public class PlayerController : MonoBehaviour {
                 collectedItem.transform.parent = gameObject.transform;
                 pickedUpItemTime = Time.fixedTime;
                 Debug.Log((collectedItem.GetComponent<Item>() as Item).itemTag); // TODO Remove
+            }
+        }
+    }
+
+    void checkForLeg() {
+        if ( Input.GetKeyDown( KeyCode.Space ) ) {
+            if ( isOnLeg ) {
+                // TODO: drop code
+            } else {
+                // TODO: check to see if leg is nearby? then attach to it?
             }
         }
     }
