@@ -9,7 +9,7 @@ public class Item : MonoBehaviour {
     [Range(0, 2)]
     [SerializeField]
     private float hoveringDistance = 0.15f;
-    [Range(0, 5)]
+    [Range(0, 60)]
     [SerializeField]
     private float secondsSpentOnGround = 2f;
 

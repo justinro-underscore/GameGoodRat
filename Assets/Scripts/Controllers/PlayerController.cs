@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour {
             (collectedItem.GetComponent<Item>() as Item).DropItem();
             collectedItem.transform.parent = gameObject.transform.parent;
             collectedItem = null;
+            UIController.instance.SetText("None", UIController.TextObject.ITEM_TEXT);
         }
     }
 
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour {
                 (collectedItem.GetComponent<Item>() as Item).PickUpItem();
                 collectedItem.transform.parent = gameObject.transform;
                 pickedUpItemTime = Time.fixedTime;
-                Debug.Log((collectedItem.GetComponent<Item>() as Item).itemTag); // TODO Remove
+                UIController.instance.SetText((collectedItem.GetComponent<Item>() as Item).itemTag.ToString(), UIController.TextObject.ITEM_TEXT);
             }
         }
     }
