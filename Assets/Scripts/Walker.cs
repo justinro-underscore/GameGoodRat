@@ -13,18 +13,21 @@ public class Walker : MonoBehaviour {
     [SerializeField]
     private float walkingSpeed = 2f;
 
-    private Leg legFG;
-    private Leg legBG;
+    public GameObject leg;
+
+    public void Start() {
+        SetParams( walkingSpeed, Constants.Outfit.JEANS, Constants.Shoe.SLIPPERS );
+    }
 
     public void SetParams( float walkingSpeed, Constants.Outfit pantType, Constants.Shoe shoeType ) {
         this.walkingSpeed = walkingSpeed;
         this.pantType = pantType;
         this.shoeType = shoeType;
 
-        legFG = new Leg();
-        legBG = new Leg();
+        Instantiate( leg, new Vector2( 2, 10 ), Quaternion.identity );
+        Instantiate( leg, new Vector2( 5, 0 ), Quaternion.identity );
 
-        legFG.SetParams( walkingSpeed, walkingDirection, pantType, shoeType );
-        legBG.SetParams( walkingSpeed, walkingDirection, pantType, shoeType );
+        // Oh god why
+        leg.GetComponent<Leg>().SetParams( walkingSpeed, walkingDirection, pantType, shoeType );    
     }
 }

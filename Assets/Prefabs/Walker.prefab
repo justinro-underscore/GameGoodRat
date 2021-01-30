@@ -43,3 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a4f01f0ec8c37ea82c4e2df2a93e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkingSpeed: 2
+  legFG: {fileID: 139512099077104167, guid: c69cbb9b83b70ae5c85e56f12b392eea, type: 3}
+  legBG: {fileID: 139512099077104167, guid: c69cbb9b83b70ae5c85e56f12b392eea, type: 3}

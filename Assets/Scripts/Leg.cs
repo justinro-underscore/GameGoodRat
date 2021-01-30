@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Leg : MonoBehaviour {
-    private Constants.Outfit pantType;
-    private Constants.Shoe shoeType;
+    public Constants.Outfit pantType;
+    public Constants.Shoe shoeType;
 
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidBody;
-    private BoxCollider2D boxCollider;
+    private BoxCollider2D shoeBoxCollider;
 
     [Range(0, 2)]
     [SerializeField]
-    private float fallingSpeed = 2f;
+    private float fallingSpeed = 1.5f;
 
     [Range(0, 2)]
     [SerializeField]
     private float risingSpeed = 2f;
 
-    [Range(0, 5)]
+    [Range(0, 10)]
     [SerializeField]
-    private float secondsSpentOnGround = 2f;
+    private float secondsSpentOnGround = 10f;
 
     [Range(0, 5)]
     [SerializeField]
@@ -30,14 +30,12 @@ public class Leg : MonoBehaviour {
     [SerializeField]
     private float secondsSpentMoving = 2f;
 
-    private Vector2 startPos = new Vector2();
-    
     private float timeHitGround = 0f;
     private float timeStartedRising = 0f;
     private float timeStartedMoving = 0f;
 
-    private float walkingSpeed;
-    private int walkingDirection;
+    public float walkingSpeed;
+    public int walkingDirection;
 
     private enum State {
         FALLING,
@@ -60,13 +58,13 @@ public class Leg : MonoBehaviour {
     public void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        shoeBoxCollider = transform.Find( "Shoe" ).GetComponent<BoxCollider2D>();
 
         currState = State.FALLING;
         rigidBody.velocity = new Vector2( 0, -fallingSpeed );
     }
 
-    void Update() {
+    public void Update() {
         switch ( currState ) {
             case State.FALLING:
                 FallingUpdate();
@@ -84,8 +82,10 @@ public class Leg : MonoBehaviour {
     }
 
     private void FallingUpdate() {
-        RaycastHit2D hitGround = Physics2D.Raycast( transform.position, Vector2.down, 0.5f, groundLayer );
+        RaycastHit2D hitGround = Physics2D.Raycast( transform.position, Vector2.down, 1.7f, groundLayer );
         if ( hitGround.collider != null ) {
+            shoeBoxCollider.enabled = false;
+
             rigidBody.velocity = new Vector2( 0, 0 );
             currState = State.GROUNDED;
             timeHitGround = Time.fixedTime;
@@ -95,6 +95,8 @@ public class Leg : MonoBehaviour {
     private void GroundedUpdate() {
         float timeSinceLanded = Time.fixedTime - timeHitGround;
         if ( timeSinceLanded > secondsSpentOnGround ) {
+            shoeBoxCollider.enabled = true;
+
             currState = State.RISING;
             rigidBody.velocity = new Vector2( 0, risingSpeed );
             timeStartedRising = Time.fixedTime;
@@ -118,7 +120,7 @@ public class Leg : MonoBehaviour {
         }
 
         Vector3 viewPos = Camera.main.WorldToViewportPoint( transform.position );
-        if ( viewPos.x < -0.2f ) {
+        if ( viewPos.x < -0.16f ) {
             Destroy( gameObject );
         }
     }
