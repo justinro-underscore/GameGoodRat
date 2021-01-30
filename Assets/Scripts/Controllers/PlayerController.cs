@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void CheckForJump() {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
             if (hit.collider != null) {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
