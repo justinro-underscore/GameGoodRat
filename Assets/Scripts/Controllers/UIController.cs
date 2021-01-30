@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIController : MonoBehaviour {
@@ -17,6 +18,12 @@ public class UIController : MonoBehaviour {
     public TMP_Text scoreText;
     public TMP_Text hiScoreText;
 
+    public GameObject heartGameObject;
+    private List<GameObject> hearts;
+    
+    public Sprite heartFull;
+    public Sprite heartEmpty;
+
     void Awake()
     {
         if (instance == null) {
@@ -24,6 +31,11 @@ public class UIController : MonoBehaviour {
         }
         else if (instance != this) {
             Destroy(gameObject);
+        }
+    
+        hearts = new List<GameObject>();
+        foreach ( Transform child in heartGameObject.transform ) {
+            hearts.Add( child.gameObject );
         }
     }
 
@@ -41,5 +53,22 @@ public class UIController : MonoBehaviour {
                 break;
         }
         textObj.text = text;
+    }
+
+    public void SetHearts( bool lifeLost ) {
+        foreach ( GameObject heart in hearts ) {
+            Image heartImage = heart.GetComponent<Image>();
+            if ( lifeLost ) {
+                if ( heartImage.sprite == heartFull ) {
+                    heartImage.sprite = heartEmpty;
+                    break;
+                }
+            } else {
+                if ( heartImage.sprite == heartEmpty ) {
+                    heartImage.sprite = heartFull;
+                    break;
+                }
+            }
+        }
     }
 }
