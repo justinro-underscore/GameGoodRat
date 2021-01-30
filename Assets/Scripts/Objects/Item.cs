@@ -15,7 +15,8 @@ public class Item : MonoBehaviour {
 
     private enum State {
         FALLING,
-        GROUNDED
+        GROUNDED,
+        PICKED_UP
     };
 
     private Rigidbody2D rb2d;
@@ -23,6 +24,8 @@ public class Item : MonoBehaviour {
 
     private Vector2 startFloatingPos = new Vector2();
     private float startFloatingTime = 0;
+
+    private Transform attachedTransform;
     
     public LayerMask groundLayer;
     public Constants.Items itemTag;
@@ -40,6 +43,9 @@ public class Item : MonoBehaviour {
                 break;
             case State.GROUNDED:
                 GroundedUpdate();
+                break;
+            case State.PICKED_UP:
+                PickedUpUpdate();
                 break;
         }
     }
@@ -60,5 +66,15 @@ public class Item : MonoBehaviour {
         if (timeSinceLanded > secondsSpentOnGround) {
             Destroy(gameObject);
         }
+    }
+
+    void PickedUpUpdate() {
+        rb2d.position = attachedTransform.position;
+    }
+
+    public void PickUpItem(Transform playerTransform) {
+        state = State.PICKED_UP;
+        rb2d.velocity = Vector2.zero;
+        attachedTransform = playerTransform;
     }
 }

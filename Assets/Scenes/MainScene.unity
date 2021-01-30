@@ -708,6 +708,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Item
       objectReference: {fileID: 0}
+    - target: {fileID: 2268130389608006424, guid: 4f51a41b390de174ab24164d6ed85b3c,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2268130389608006428, guid: 4f51a41b390de174ab24164d6ed85b3c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -836,6 +841,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rat
+      objectReference: {fileID: 0}
+    - target: {fileID: 5127350952718151386, guid: 28983b55cbd71014cad071be5e722a02,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28983b55cbd71014cad071be5e722a02, type: 3}

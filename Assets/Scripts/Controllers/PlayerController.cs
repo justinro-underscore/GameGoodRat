@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     private float lowJumpMultiplier = 2f;
     
     private Rigidbody2D rb2d;
+    private GameObject collectedItem = null;
 
     public LayerMask groundLayer;
 
@@ -50,5 +51,16 @@ public class PlayerController : MonoBehaviour {
         } else if (rb2d.velocity.y > 0 && !Input.GetKey(KeyCode.Space)) {
             rb2d.velocity += Vector2.up * Physics2D.gravity * (lowJumpMultiplier - 1) * Time.deltaTime;
         }   
+    }
+
+    void OnTriggerStay2D (Collider2D other) {
+        if (collectedItem == null && other.gameObject.CompareTag("Item")) {
+            if (Input.GetKeyDown(KeyCode.E)) {
+                collectedItem = other.gameObject;
+                (collectedItem.GetComponent<Item>() as Item).PickUpItem(gameObject.transform);
+                collectedItem.transform.parent = gameObject.transform;
+                Debug.Log((collectedItem.GetComponent<Item>() as Item).itemTag);
+            }
+        }
     }
 }
