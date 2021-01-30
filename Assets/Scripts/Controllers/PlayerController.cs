@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour {
         if (collectedItem == null && other.gameObject.CompareTag("Item")) {
             if (Input.GetKeyDown(KeyCode.E)) {
                 collectedItem = other.gameObject;
-                (collectedItem.GetComponent<Item>() as Item).PickUpItem(gameObject.transform);
+                (collectedItem.GetComponent<Item>() as Item).PickUpItem();
                 collectedItem.transform.parent = gameObject.transform;
                 pickedUpItemTime = Time.fixedTime;
                 Debug.Log((collectedItem.GetComponent<Item>() as Item).itemTag); // TODO Remove

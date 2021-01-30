@@ -25,8 +25,6 @@ public class Item : MonoBehaviour {
     private Vector2 startFloatingPos = new Vector2();
     private float startFloatingTime = 0;
 
-    private Transform attachedTransform = null;
-    
     public LayerMask groundLayer;
     public Constants.Items itemTag;
 
@@ -69,19 +67,17 @@ public class Item : MonoBehaviour {
     }
 
     void PickedUpUpdate() {
-        rb2d.position = attachedTransform.position;
+        rb2d.position = transform.parent.position;
     }
 
-    public void PickUpItem(Transform playerTransform) {
+    public void PickUpItem() {
         state = State.PICKED_UP;
         rb2d.velocity = Vector2.zero;
-        attachedTransform = playerTransform;
     }
 
     public void DropItem() {
         state = State.FALLING;
         rb2d.velocity = new Vector2(0, -fallingSpeed);
-        attachedTransform = null;
         transform.position += new Vector3(0, 0.2f);
     }
 }
