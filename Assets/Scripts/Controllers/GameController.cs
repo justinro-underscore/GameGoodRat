@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 
     public GameObject playerPrefab;
     public GameObject itemPrefab;
+    public GameObject walkerPrefab;
 
     public int OFFSCREEN_X = 11;
     public int OFFSCREEN_Y = 5;
@@ -27,5 +28,11 @@ public class GameController : MonoBehaviour {
         GameObject item = Instantiate(itemPrefab, new Vector3(UnityEngine.Random.Range(-OFFSCREEN_X, OFFSCREEN_X), OFFSCREEN_Y), Quaternion.identity);
         Array itemTypes = Enum.GetValues(typeof(Constants.Items));
         (item.GetComponent<Item>() as Item).itemTag = (Constants.Items)itemTypes.GetValue((int)Mathf.Floor(UnityEngine.Random.value * itemTypes.Length));
+    }
+
+    public void SpawnWalker() {
+        GameObject walker = Instantiate(walkerPrefab, new Vector3(OFFSCREEN_X, OFFSCREEN_Y), Quaternion.identity);
+        // Array itemTypes = Enum.GetValues(typeof(Constants.Items));
+        // (item.GetComponent<Item>() as Item).itemTag = (Constants.Items)itemTypes.GetValue((int)Mathf.Floor(UnityEngine.Random.value * itemTypes.Length));
     }
 }

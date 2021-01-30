@@ -95,8 +95,6 @@ public class Leg : MonoBehaviour {
     private void GroundedUpdate() {
         float timeSinceLanded = Time.fixedTime - timeHitGround;
         if ( timeSinceLanded > secondsSpentOnGround ) {
-            shoeBoxCollider.enabled = true;
-
             currState = State.RISING;
             rigidBody.velocity = new Vector2( 0, risingSpeed );
             timeStartedRising = Time.fixedTime;
@@ -115,12 +113,14 @@ public class Leg : MonoBehaviour {
     private void MovementUpdate() {
         float delta = Time.fixedTime - timeStartedMoving;
         if ( delta > secondsSpentMoving ) {
+            shoeBoxCollider.enabled = true;
+
             currState = State.FALLING;
             rigidBody.velocity = new Vector2( 0, -fallingSpeed );
         }
 
         Vector3 viewPos = Camera.main.WorldToViewportPoint( transform.position );
-        if ( viewPos.x < -0.16f ) {
+        if ( viewPos.x < -0.1f ) {
             Destroy( gameObject );
         }
     }

@@ -43,10 +43,14 @@ public class PlayerController : MonoBehaviour {
         rb2d.velocity = new Vector2(x * speed, rb2d.velocity.y);
     }
 
+    bool IsOnGround() {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
+        return hit.collider != null;
+    }
+
     void CheckForJump() {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
-            if (hit.collider != null) {
+            if (IsOnGround()) {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
                 SoundController.instance.PlaySingle("jumpSound");
             }
@@ -81,8 +85,18 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnTriggerEnter2D (Collider2D other) {
-        if (collectedItem == null && overItem == null && other.gameObject.CompareTag("Item")) {
-            overItem = other.gameObject;
+        if (other.gameObject.CompareTag("Item")) {
+            if (collectedItem == null && overItem == null) {
+                overItem = other.gameObject;
+            }
+        }
+        else if (other.gameObject.CompareTag("Leg")) {
+            Debug.Log("Over Leg");
+        }
+        else if (other.gameObject.CompareTag("Shoe")) {
+            if (IsOnGround()) {
+                Debug.Log("DEAD");
+            }
         }
     }
 

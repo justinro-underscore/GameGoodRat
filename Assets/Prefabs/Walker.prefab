@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSpeed: 2
-  legFG: {fileID: 139512099077104167, guid: c69cbb9b83b70ae5c85e56f12b392eea, type: 3}
-  legBG: {fileID: 139512099077104167, guid: c69cbb9b83b70ae5c85e56f12b392eea, type: 3}
+  leg: {fileID: 8189229302253916136, guid: 34055d6fa39d45ffe9c84da4add32fb7, type: 3}
