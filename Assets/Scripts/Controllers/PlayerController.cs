@@ -83,6 +83,13 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D (Collider2D other) {
         if (collectedItem == null && overItem == null && other.gameObject.CompareTag("Item")) {
             overItem = other.gameObject;
+            Debug.Log(overItem.GetInstanceID());
+        }
+    }
+
+    void OnTriggerExit2D (Collider2D other) {
+        if (overItem != null && other.gameObject.CompareTag("Item")) {
+            overItem = null;
         }
     }
 
