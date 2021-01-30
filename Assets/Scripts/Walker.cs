@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Walker : MonoBehaviour {
-    private int walkingDirection;
+    private int walkingDirection = -1;
     
     private Constants.Outfit pantType;
     private Constants.Shoe shoeType;
-
-    private float walkingSpeed;
+    
+    [Range(0, 2)]
+    [SerializeField]
+    private float walkingSpeed = 2f;
 
     private Leg legFG;
     private Leg legBG;
@@ -22,14 +24,7 @@ public class Walker : MonoBehaviour {
         legFG = new Leg();
         legBG = new Leg();
 
-        legFG.SetParams( pantType, shoeType );
-        legBG.SetParams( pantType, shoeType );
-
-        walkingDirection = -1;
-    }
-
-    // Walk function
-    public void Walk() {
-        
+        legFG.SetParams( walkingSpeed, walkingDirection, pantType, shoeType );
+        legBG.SetParams( walkingSpeed, walkingDirection, pantType, shoeType );
     }
 }
