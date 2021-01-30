@@ -395,7 +395,7 @@ Transform:
   m_LocalScale: {x: 90, y: 3.9466622, z: 1}
   m_Children: []
   m_Father: {fileID: 1374914447}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1020932352
 BoxCollider2D:
@@ -501,8 +501,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 937055713}
-  - {fileID: 1921311833}
   - {fileID: 1020932351}
+  - {fileID: 1921311833}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -516,7 +516,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1570885634}
   - component: {fileID: 1570885636}
-  - component: {fileID: 1570885635}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -538,14 +537,6 @@ Transform:
   m_Father: {fileID: 519420032}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1570885635
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570885633}
-  m_Enabled: 1
 --- !u!20 &1570885636
 Camera:
   m_ObjectHideFlags: 0
@@ -699,6 +690,7 @@ GameObject:
   - component: {fileID: 1921311835}
   - component: {fileID: 1921311834}
   - component: {fileID: 1921311836}
+  - component: {fileID: 1921311837}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Player
@@ -718,7 +710,7 @@ Transform:
   m_LocalScale: {x: 2, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 1374914447}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1921311834
 Rigidbody2D:
@@ -817,3 +809,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &1921311837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921311832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc3d8376dc7ec2348a3179ade66ee805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 10
