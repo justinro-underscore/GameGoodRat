@@ -70,4 +70,7 @@ public class Constants {
         {Items.PURSE, People.GIRL},
         {Items.PRISON_KEY, People.PRISONER}
     };
+
+    public const int OFFSCREEN_X = 11;
+    public const int OFFSCREEN_Y = 5;
 }

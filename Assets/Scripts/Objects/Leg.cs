@@ -10,32 +10,33 @@ public class Leg : MonoBehaviour {
     private Rigidbody2D rigidBody;
     private BoxCollider2D shoeBoxCollider;
 
-    [Range(0, 2)]
+    [Range(0, 10)]
     [SerializeField]
-    private float fallingSpeed = 1.5f;
-
-    [Range(0, 2)]
-    [SerializeField]
-    private float risingSpeed = 2f;
+    private float fallingSpeed = 0f;
 
     [Range(0, 10)]
     [SerializeField]
-    private float secondsSpentOnGround = 10f;
+    private float risingSpeed = 0f;
+
+    [Range(0, 10)]
+    [SerializeField]
+    private float secondsSpentOnGround = 0f;
 
     [Range(0, 5)]
     [SerializeField]
-    private float secondsSpentRising = 2f;
+    private float secondsSpentRising = 0f;
 
     [Range(0, 5)]
     [SerializeField]
-    private float secondsSpentMoving = 2f;
+    private float howFarToMove = 0f;
 
+    private float walkingSpeed = 10f;
+    private bool walkingLeft = true;
+
+    private float movementStartX;
     private float timeHitGround = 0f;
     private float timeStartedRising = 0f;
-    private float timeStartedMoving = 0f;
 
-    public float walkingSpeed;
-    public int walkingDirection;
 
     private enum State {
         FALLING,
@@ -48,9 +49,9 @@ public class Leg : MonoBehaviour {
 
     public LayerMask groundLayer;
 
-    public void SetParams( float walkingSpeed, int walkingDirection, Constants.Outfit pantType, Constants.Shoe shoeType ) {
+    public void SetParams( float walkingSpeed, bool walkingLeft, Constants.Outfit pantType, Constants.Shoe shoeType ) {
         this.walkingSpeed = walkingSpeed;
-        this.walkingDirection = walkingDirection;
+        this.walkingLeft = walkingLeft;
         this.pantType = pantType;
         this.shoeType = shoeType;
     }
@@ -93,26 +94,26 @@ public class Leg : MonoBehaviour {
     }
 
     private void GroundedUpdate() {
-        float timeSinceLanded = Time.fixedTime - timeHitGround;
-        if ( timeSinceLanded > secondsSpentOnGround ) {
-            currState = State.RISING;
-            rigidBody.velocity = new Vector2( 0, risingSpeed );
-            timeStartedRising = Time.fixedTime;
-        }
+        // float timeSinceLanded = Time.fixedTime - timeHitGround;
+        // if ( timeSinceLanded > secondsSpentOnGround ) {
+        //     currState = State.RISING;
+        //     rigidBody.velocity = new Vector2( 0, risingSpeed );
+        //     timeStartedRising = Time.fixedTime;
+        // }
     }
 
     private void RisingUpdate() {
         float delta = Time.fixedTime - timeStartedRising;
         if ( delta > secondsSpentRising ) {
             currState = State.MOVING;
-            rigidBody.velocity = new Vector2( walkingSpeed * walkingDirection, 0 );
-            timeStartedMoving = Time.fixedTime;
+            movementStartX = transform.position.x;
+            rigidBody.velocity = new Vector2( walkingSpeed * (walkingLeft ? -1 : 1), 0 );
         }
     }
 
     private void MovementUpdate() {
-        float delta = Time.fixedTime - timeStartedMoving;
-        if ( delta > secondsSpentMoving ) {
+        if ((walkingLeft && transform.position.x < (movementStartX - howFarToMove)) ||
+            (!walkingLeft && transform.position.x > (movementStartX + howFarToMove))) {
             shoeBoxCollider.enabled = true;
 
             currState = State.FALLING;

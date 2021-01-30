@@ -4,14 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Walker : MonoBehaviour {
-    private int walkingDirection = -1;
-    
     private Constants.Outfit pantType;
     private Constants.Shoe shoeType;
     
-    [Range(0, 2)]
+    [Range(0, 10)]
     [SerializeField]
-    private float walkingSpeed = 2f;
+    private float walkingSpeed = 10f;
 
     public GameObject leg;
 
@@ -24,10 +22,11 @@ public class Walker : MonoBehaviour {
         this.pantType = pantType;
         this.shoeType = shoeType;
 
-        Instantiate( leg, new Vector2( 2, 10 ), Quaternion.identity );
-        Instantiate( leg, new Vector2( 5, 0 ), Quaternion.identity );
+        Instantiate( leg, new Vector2( Constants.OFFSCREEN_X - 2, Constants.OFFSCREEN_Y * 4 ), Quaternion.identity );
+        // Instantiate( leg, new Vector2( Constants.OFFSCREEN_X + 2, 0 ), Quaternion.identity );
+        Instantiate( leg, new Vector2( 0, 2 ), Quaternion.identity );
 
         // Oh god why
-        leg.GetComponent<Leg>().SetParams( walkingSpeed, walkingDirection, pantType, shoeType );    
+        leg.GetComponent<Leg>().SetParams( walkingSpeed, true, pantType, shoeType );    
     }
 }

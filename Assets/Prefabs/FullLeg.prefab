@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -925882865
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 10f183bc02969e545aee6423b94cedac, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -178,7 +178,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -925882865
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 10f183bc02969e545aee6423b94cedac, type: 3}
   m_Color: {r: 0.7169812, g: 0.46981224, b: 0.18939124, a: 1}
   m_FlipX: 0
@@ -285,13 +285,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pantType: 0
   shoeType: 0
-  fallingSpeed: 1.5
-  risingSpeed: 2
-  secondsSpentOnGround: 7
-  secondsSpentRising: 2
-  secondsSpentMoving: 2
-  walkingSpeed: 0
-  walkingDirection: 0
+  fallingSpeed: 4.9
+  risingSpeed: 3.8
+  secondsSpentOnGround: 2.3
+  secondsSpentRising: 1.5
+  howFarToMove: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 256

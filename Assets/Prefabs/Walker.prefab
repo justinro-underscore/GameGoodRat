@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a4f01f0ec8c37ea82c4e2df2a93e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 2
+  walkingSpeed: 10
   leg: {fileID: 8189229302253916136, guid: 34055d6fa39d45ffe9c84da4add32fb7, type: 3}

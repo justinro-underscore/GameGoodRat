@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour {
+    public static int id = 0;
+
     [Range(0, 2)]
     [SerializeField]
     private float fallingSpeed = 2f;
@@ -33,6 +35,7 @@ public class Item : MonoBehaviour {
     public Constants.Items itemTag;
 
     void Start() {
+        id = id++;
         rb2d = GetComponent<Rigidbody2D>();
         renderer = GetComponent<SpriteRenderer>();
         state = State.FALLING;

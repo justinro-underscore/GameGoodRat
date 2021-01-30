@@ -11,10 +11,8 @@ public class GameController : MonoBehaviour {
     public GameObject itemPrefab;
     public GameObject walkerPrefab;
 
-    public int OFFSCREEN_X = 11;
-    public int OFFSCREEN_Y = 5;
-
     void Start() {
+        SpawnWalker();
     }
 
     void Update() {
@@ -25,13 +23,13 @@ public class GameController : MonoBehaviour {
     }
 
     public void SpawnItem() {
-        GameObject item = Instantiate(itemPrefab, new Vector3(UnityEngine.Random.Range(-OFFSCREEN_X, OFFSCREEN_X), OFFSCREEN_Y), Quaternion.identity);
+        GameObject item = Instantiate(itemPrefab, new Vector3(UnityEngine.Random.Range(-Constants.OFFSCREEN_X, Constants.OFFSCREEN_X), Constants.OFFSCREEN_Y), Quaternion.identity);
         Array itemTypes = Enum.GetValues(typeof(Constants.Items));
         (item.GetComponent<Item>() as Item).itemTag = (Constants.Items)itemTypes.GetValue((int)Mathf.Floor(UnityEngine.Random.value * itemTypes.Length));
     }
 
     public void SpawnWalker() {
-        GameObject walker = Instantiate(walkerPrefab, new Vector3(OFFSCREEN_X, OFFSCREEN_Y), Quaternion.identity);
+        GameObject walker = Instantiate(walkerPrefab, new Vector3(0, 0), Quaternion.identity);
         // Array itemTypes = Enum.GetValues(typeof(Constants.Items));
         // (item.GetComponent<Item>() as Item).itemTag = (Constants.Items)itemTypes.GetValue((int)Mathf.Floor(UnityEngine.Random.value * itemTypes.Length));
     }
