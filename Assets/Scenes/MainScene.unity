@@ -376,8 +376,8 @@ GameObject:
   - component: {fileID: 1020932351}
   - component: {fileID: 1020932353}
   - component: {fileID: 1020932352}
-  m_Layer: 0
-  m_Name: Floor
+  m_Layer: 8
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -821,4 +821,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3d8376dc7ec2348a3179ade66ee805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  speed: 10
+  jumpForce: 10
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
