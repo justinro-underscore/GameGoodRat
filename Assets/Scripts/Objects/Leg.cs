@@ -94,12 +94,12 @@ public class Leg : MonoBehaviour {
     }
 
     private void GroundedUpdate() {
-        // float timeSinceLanded = Time.fixedTime - timeHitGround;
-        // if ( timeSinceLanded > secondsSpentOnGround ) {
-        //     currState = State.RISING;
-        //     rigidBody.velocity = new Vector2( 0, risingSpeed );
-        //     timeStartedRising = Time.fixedTime;
-        // }
+        float timeSinceLanded = Time.fixedTime - timeHitGround;
+        if ( timeSinceLanded > secondsSpentOnGround ) {
+            currState = State.RISING;
+            rigidBody.velocity = new Vector2( 0, risingSpeed );
+            timeStartedRising = Time.fixedTime;
+        }
     }
 
     private void RisingUpdate() {
