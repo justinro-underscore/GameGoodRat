@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 
     private float pickedUpItemTime = 0;
     private const float pickedUpItemDebounce = 0.2f;
+    private GameObject overItem = null;
     private GameObject collectedItem = null;
 
     public LayerMask groundLayer;
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour {
         Move();
         CheckForJump();
         BetterJump();
-        CheckForDrop();
+        CheckForPickUpOrDrop();
 	}
 
     void Move() {
@@ -60,24 +61,28 @@ public class PlayerController : MonoBehaviour {
         }   
     }
 
-    void CheckForDrop() {
-        if (Input.GetKeyDown(KeyCode.E) && collectedItem != null && Time.fixedTime > pickedUpItemTime + pickedUpItemDebounce) {
-            (collectedItem.GetComponent<Item>() as Item).DropItem();
-            collectedItem.transform.parent = gameObject.transform.parent;
-            collectedItem = null;
-            UIController.instance.SetText("None", UIController.TextObject.ITEM_TEXT);
-        }
-    }
-
-    void OnTriggerStay2D (Collider2D other) {
-        if (collectedItem == null && other.gameObject.CompareTag("Item")) {
-            if (Input.GetKeyDown(KeyCode.E)) {
-                collectedItem = other.gameObject;
+    void CheckForPickUpOrDrop() {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            if (collectedItem == null && overItem != null) {
+                collectedItem = overItem;
+                overItem = null;
                 (collectedItem.GetComponent<Item>() as Item).PickUpItem();
                 collectedItem.transform.parent = gameObject.transform;
                 pickedUpItemTime = Time.fixedTime;
                 UIController.instance.SetText((collectedItem.GetComponent<Item>() as Item).itemTag.ToString(), UIController.TextObject.ITEM_TEXT);
             }
+            else if (collectedItem != null && Time.fixedTime > pickedUpItemTime + pickedUpItemDebounce) {
+                (collectedItem.GetComponent<Item>() as Item).DropItem();
+                collectedItem.transform.parent = gameObject.transform.parent;
+                collectedItem = null;
+                UIController.instance.SetText("None", UIController.TextObject.ITEM_TEXT);
+            }
+        }
+    }
+
+    void OnTriggerEnter2D (Collider2D other) {
+        if (collectedItem == null && overItem == null && other.gameObject.CompareTag("Item")) {
+            overItem = other.gameObject;
         }
     }
 
