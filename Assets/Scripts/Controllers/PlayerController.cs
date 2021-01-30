@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
             if (hit.collider != null) {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+                SoundController.instance.PlaySingle("jumpSound");
             }
         }
     }
