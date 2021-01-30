@@ -30,6 +30,33 @@ public class Constants {
         PRISONER
     };
 
+    public enum Outfit {
+        JEANS,
+        BUSINESS_PANTS,
+        WEDDING_DRESS,
+        CARGO_PANTS,
+        SHORTS,
+        SWEATPANTS,
+        SWIM_TRUNKS,
+        CAMO_PANTS,
+        OVERALLS,
+        SKIRT,
+        PRISON_OVERALLS
+    };
+
+    public enum Shoe {
+        COWBOY_BOOTS,
+        DRESS_SHOES,
+        SNEAKERS,
+        TENNIS_SHOES,
+        SLIPPERS,
+        FLIP_FLOPS,
+        ARMY_BOOTS,
+        FARMER_BOOTS,
+        HIGH_HEELS,
+        SHACKLES
+    };
+
     static public IDictionary<Items, People> itemToPerson = new Dictionary<Items, People>() {
         {Items.SIX_SHOOTER, People.COWBOY},
         {Items.BRIEFCASE, People.BUSINESS_MAN},
