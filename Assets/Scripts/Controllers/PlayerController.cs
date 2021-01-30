@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour {
     private float lowJumpMultiplier = 2f;
     
     private Rigidbody2D rb2d;
+
+    private float pickedUpItemTime = 0;
+    private const float pickedUpItemDebounce = 0.2f;
     private GameObject collectedItem = null;
 
     public LayerMask groundLayer;
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour {
         Move();
         CheckForJump();
         BetterJump();
+        CheckForDrop();
 	}
 
     void Move() {
@@ -53,13 +57,22 @@ public class PlayerController : MonoBehaviour {
         }   
     }
 
+    void CheckForDrop() {
+        if (Input.GetKeyDown(KeyCode.E) && collectedItem != null && Time.fixedTime > pickedUpItemTime + pickedUpItemDebounce) {
+            (collectedItem.GetComponent<Item>() as Item).DropItem();
+            collectedItem.transform.parent = gameObject.transform.parent;
+            collectedItem = null;
+        }
+    }
+
     void OnTriggerStay2D (Collider2D other) {
         if (collectedItem == null && other.gameObject.CompareTag("Item")) {
             if (Input.GetKeyDown(KeyCode.E)) {
                 collectedItem = other.gameObject;
                 (collectedItem.GetComponent<Item>() as Item).PickUpItem(gameObject.transform);
                 collectedItem.transform.parent = gameObject.transform;
-                Debug.Log((collectedItem.GetComponent<Item>() as Item).itemTag);
+                pickedUpItemTime = Time.fixedTime;
+                Debug.Log((collectedItem.GetComponent<Item>() as Item).itemTag); // TODO Remove
             }
         }
     }
