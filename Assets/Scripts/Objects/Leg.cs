@@ -51,16 +51,19 @@ public class Leg : MonoBehaviour {
         Constants.Outfit outfit = Constants.personToOutfit[personType];
         spriteRenderer.sprite = Constants.outfitSprites[outfit];
         spriteRenderer.flipX = !walkingLeft;
-        
-        legColliders = transform.Find( "Pants" ).GetComponents<Collider2D>();
+
+        Transform pants = transform.Find( "Pants" );
+        Transform shoe = transform.Find( "Shoe" );
+        shoeBoxColliders = shoe.GetComponents<BoxCollider2D>();
+        legColliders = pants.GetComponents<Collider2D>();
         legColliders[Constants.bareLegs.Contains(outfit) ? 1 : 0].enabled = true;
 
-        _Start();
-    }
+        if (!walkingLeft) {
+            pants.localScale = new Vector3(-1, 1, 1);
+            shoe.localScale = new Vector3(-1, 1, 1);
+        }
 
-    void _Start() {
         rigidBody = GetComponent<Rigidbody2D>();
-        shoeBoxColliders = transform.Find( "Shoe" ).GetComponents<BoxCollider2D>();
 
         currState = State.FALLING;
         rigidBody.velocity = new Vector2( 0, -fallingSpeed );

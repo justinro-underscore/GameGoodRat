@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3945818252857400799}
   - component: {fileID: 242265137435652913}
-  - component: {fileID: 2737257875944399395}
+  - component: {fileID: 4816025652046967331}
   m_Layer: 0
   m_Name: Pants
   m_TagString: Pants
@@ -271,8 +271,8 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5273166, y: 2.5986009}
   m_EdgeRadius: 0
---- !u!60 &2737257875944399395
-PolygonCollider2D:
+--- !u!61 &4816025652046967331
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -284,7 +284,7 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.21027623, y: 0.4330753}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -294,11 +294,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.10940495, y: 1.7369213}
-      - {x: -0.18857586, y: 0.53355616}
-      - {x: 0.019000933, y: 0.5279047}
-      - {x: -0.033466697, y: -0.8454983}
-      - {x: 0.39815003, y: -0.8527944}
-      - {x: 0.41132522, y: 1.7390826}
+  serializedVersion: 2
+  m_Size: {x: 0.40627888, y: 2.5590713}
+  m_EdgeRadius: 0
