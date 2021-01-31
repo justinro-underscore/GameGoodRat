@@ -196,7 +196,7 @@ public class PlayerController : MonoBehaviour {
                 (collectedItem.GetComponent<Item>() as Item).PickUpItem();
                 collectedItem.transform.parent = gameObject.transform;
                 pickedUpItemTime = Time.fixedTime;
-                UIController.instance.SetText((collectedItem.GetComponent<Item>() as Item).itemType.ToString(), UIController.TextObject.ITEM_TEXT);
+                UIController.instance.SetText((collectedItem.GetComponent<Item>() as Item).itemType.ToString().Replace("_", " "), UIController.TextObject.ITEM_TEXT);
             }
             else if (collectedItem != null && Time.fixedTime > pickedUpItemTime + pickedUpItemDebounce) {
                 (collectedItem.GetComponent<Item>() as Item).DropItem();

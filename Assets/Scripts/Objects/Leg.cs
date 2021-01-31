@@ -115,6 +115,8 @@ public class Leg : MonoBehaviour {
         if ((walkingLeft && viewPos.x < -0.2f) ||
             (!walkingLeft && viewPos.x > 1.2f)) {
             otherLeg.StartRising();
+
+            GameController.instance.currNumLegs--;
             Destroy( gameObject );
         }
     }

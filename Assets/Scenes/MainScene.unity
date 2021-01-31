@@ -958,7 +958,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HI - 173580
+  m_text: HI - 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10283c4f16607754ea7c633420c2c0ab, type: 2}
   m_sharedMaterial: {fileID: 1191478837427217296, guid: 10283c4f16607754ea7c633420c2c0ab,
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -0.3247223, w: -0.29135132}
   m_textInfo:
     textComponent: {fileID: 792129717}
-    characterCount: 11
+    characterCount: 6
     spriteCount: 0
     spaceCount: 2
     wordCount: 3
@@ -1368,7 +1368,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3790
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10283c4f16607754ea7c633420c2c0ab, type: 2}
   m_sharedMaterial: {fileID: 1191478837427217296, guid: 10283c4f16607754ea7c633420c2c0ab,
@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -0.3247223, w: -0.29135132}
   m_textInfo:
     textComponent: {fileID: 932051923}
-    characterCount: 4
+    characterCount: 1
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

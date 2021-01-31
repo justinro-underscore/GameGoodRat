@@ -205,7 +205,7 @@ MonoBehaviour:
   sortingOrder: 0
   fallingSpeed: 9.1
   movementY: 11.8
-  itemProbability: 1
+  itemProbability: 0.494
   otherLeg: {fileID: 0}
   droppedItem: 0
   personType: 0

@@ -7,6 +7,22 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
     public static GameController instance = null;
 
+    [Range(1, 5)]
+    [SerializeField]
+    public int minNumberOfLegs = 2;
+    [Range(5, 15)]
+    [SerializeField]
+    public int maxNumberOfLegs = 10;
+    public int currNumLegs = 0;
+    private int numLegs;
+    [Range(1, 10)]
+    [SerializeField]
+    private float startWalkerSpawnerTime = 8;
+    [Range(1, 5)]
+    [SerializeField]
+    private float minWalkerSpawnerTime = 1;
+    private float walkerSpawnerTime = 2;
+
     private int score;
     private string playerInitials;
 
@@ -28,13 +44,11 @@ public class GameController : MonoBehaviour {
         score = 0;
         playerInitials = "AAA";
 
-        // SpawnWalker();
+        StartGame();
     }
 
     void Update() {
-        if ( false == gameOver ) {
-            UIController.instance.SetText( score.ToString(), UIController.TextObject.SCORE_TEXT );
-        } else {
+        if ( gameOver ) {
             SceneController.LoadLevel( "HighScore" );
             HighScoreController.hsInstance.ShowHighScore( score );
             Destroy( this.gameObject );
@@ -42,6 +56,21 @@ public class GameController : MonoBehaviour {
     }
 
     void StartGame() {
+        numLegs = minNumberOfLegs * 2;
+        walkerSpawnerTime = startWalkerSpawnerTime;
+        currNumLegs = 0;
+        Invoke("TrySpawningWalker", 0.5f);
+    }
+
+    void TrySpawningWalker() {
+        int currNumLegsDiv = (int)Mathf.Floor(currNumLegs / 2);
+        int numLegsDiv = (int)Mathf.Floor(numLegs / 2);
+        if (currNumLegsDiv < numLegsDiv) {
+            SpawnWalker();
+            numLegs = Mathf.Min(numLegs + 1, maxNumberOfLegs);
+            walkerSpawnerTime = Mathf.Max(minWalkerSpawnerTime, walkerSpawnerTime - 0.1f);
+        }
+        Invoke("TrySpawningWalker", walkerSpawnerTime);
     }
 
     public void DropOffItem(GameObject itemObject, GameObject legObject) {
@@ -55,6 +84,7 @@ public class GameController : MonoBehaviour {
         else {
             score -= 50;
         }
+        UIController.instance.SetText( score.ToString(), UIController.TextObject.SCORE_TEXT );
     }
 
     public void SpawnWalker() {
