@@ -4,29 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Walker : MonoBehaviour {
-    private Constants.Outfit pantType;
-    private Constants.Shoe shoeType;
-    
-    [Range(0, 10)]
-    [SerializeField]
-    private float walkingSpeed = 10f;
-
     public GameObject leg;
 
-    public void Start() {
-        SetParams( walkingSpeed, Constants.Outfit.JEANS, Constants.Shoe.SLIPPERS );
-    }
+    public void Init (float walkingSpeed, bool walkingLeft, Constants.People personType) {
+        GameObject leg1 = Instantiate( leg, new Vector2( Constants.OFFSCREEN_X - 2, Constants.OFFSCREEN_Y * 4 ), Quaternion.identity );
+        GameObject leg2 = Instantiate( leg, new Vector2( Constants.OFFSCREEN_X + 2, 0 ), Quaternion.identity );
 
-    public void SetParams( float walkingSpeed, Constants.Outfit pantType, Constants.Shoe shoeType ) {
-        this.walkingSpeed = walkingSpeed;
-        this.pantType = pantType;
-        this.shoeType = shoeType;
+        (Constants.Outfit outfit, Constants.Shoe shoe) = Constants.personToOutfit[personType];
 
-        Instantiate( leg, new Vector2( Constants.OFFSCREEN_X - 2, Constants.OFFSCREEN_Y * 4 ), Quaternion.identity );
-        // Instantiate( leg, new Vector2( Constants.OFFSCREEN_X + 2, 0 ), Quaternion.identity );
-        Instantiate( leg, new Vector2( 0, 2 ), Quaternion.identity );
-
-        // Oh god why
-        leg.GetComponent<Leg>().SetParams( walkingSpeed, true, pantType, shoeType );    
+        leg1.GetComponent<Leg>().SetParams(walkingSpeed, walkingLeft, personType, outfit, shoe);    
+        leg2.GetComponent<Leg>().SetParams(walkingSpeed, walkingLeft, personType, outfit, shoe);    
     }
 }

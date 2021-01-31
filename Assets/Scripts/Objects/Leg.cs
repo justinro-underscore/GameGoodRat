@@ -1,11 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Leg : MonoBehaviour {
-    public Constants.Outfit pantType;
-    public Constants.Shoe shoeType;
-
+    private bool initialized = false;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidBody;
     private BoxCollider2D[] shoeBoxColliders;
@@ -30,14 +29,6 @@ public class Leg : MonoBehaviour {
     [SerializeField]
     private float howFarToMove = 0f;
 
-    private float walkingSpeed = 10f;
-    private bool walkingLeft = true;
-
-    private float movementStartX;
-    private float timeHitGround = 0f;
-    private float timeStartedRising = 0f;
-
-
     private enum State {
         FALLING,
         GROUNDED,
@@ -46,39 +37,56 @@ public class Leg : MonoBehaviour {
     };
 
     private State currState;
+    private Constants.People personType;
 
+    private float walkingSpeed;
+    private bool walkingLeft;
+
+    private bool droppedItem = false;
+    private float movementStartX;
+    private float timeHitGround = 0f;
+    private float timeStartedRising = 0f;
+
+    public GameObject itemPrefab;
     public LayerMask groundLayer;
 
-    public void SetParams( float walkingSpeed, bool walkingLeft, Constants.Outfit pantType, Constants.Shoe shoeType ) {
+    public void SetParams( float walkingSpeed, bool walkingLeft, Constants.People personType, Constants.Outfit outfitType, Constants.Shoe shoeType ) {
         this.walkingSpeed = walkingSpeed;
         this.walkingLeft = walkingLeft;
-        this.pantType = pantType;
-        this.shoeType = shoeType;
+        this.personType = personType;
+
+        // TODO Use renderer to use outfit and shoe
+
+        _Start();
     }
 
-    public void Start() {
+    void _Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
         shoeBoxColliders = transform.Find( "Shoe" ).GetComponents<BoxCollider2D>();
 
         currState = State.FALLING;
         rigidBody.velocity = new Vector2( 0, -fallingSpeed );
+
+        initialized = true;
     }
 
-    public void Update() {
-        switch ( currState ) {
-            case State.FALLING:
-                FallingUpdate();
-                break;
-            case State.GROUNDED:
-                GroundedUpdate();
-                break;
-            case State.RISING:
-                RisingUpdate();
-                break;
-            case State.MOVING:
-                MovementUpdate();
-                break;
+    void Update() {
+        if (initialized) {
+            switch ( currState ) {
+                case State.FALLING:
+                    FallingUpdate();
+                    break;
+                case State.GROUNDED:
+                    GroundedUpdate();
+                    break;
+                case State.RISING:
+                    RisingUpdate();
+                    break;
+                case State.MOVING:
+                    MovementUpdate();
+                    break;
+            }
         }
     }
 
@@ -90,7 +98,18 @@ public class Leg : MonoBehaviour {
             rigidBody.velocity = new Vector2( 0, 0 );
             currState = State.GROUNDED;
             timeHitGround = Time.fixedTime;
+
+            if (!droppedItem && UnityEngine.Random.value < 0.4f) {
+                DropItem();
+            }
         }
+    }
+
+    private void DropItem() {
+        GameObject item = Instantiate(itemPrefab, new Vector3(transform.position.x, Constants.OFFSCREEN_Y + 1), Quaternion.identity);
+        Array itemTypes = Enum.GetValues(typeof(Constants.Items));
+        Constants.Items itemType = (Constants.Items)itemTypes.GetValue((int)Mathf.Floor(UnityEngine.Random.value * itemTypes.Length));
+        (item.GetComponent<Item>() as Item).Init(itemType);
     }
 
     private void GroundedUpdate() {
@@ -121,7 +140,8 @@ public class Leg : MonoBehaviour {
         }
 
         Vector3 viewPos = Camera.main.WorldToViewportPoint( transform.position );
-        if ( viewPos.x < -0.1f ) {
+        if ((walkingLeft && viewPos.x < -0.1f) ||
+            (!walkingLeft && viewPos.x > 1.1f)) {
             Destroy( gameObject );
         }
     }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour {
-    public static int id = 0;
-
     [Range(0, 2)]
     [SerializeField]
     private float fallingSpeed = 2f;
@@ -22,6 +20,7 @@ public class Item : MonoBehaviour {
         DISAPPEARING
     };
 
+    private bool initialized = false;
     private Rigidbody2D rb2d;
     private SpriteRenderer renderer;
     private State state;
@@ -31,28 +30,34 @@ public class Item : MonoBehaviour {
 
     private float disappearTime;
 
+    public Constants.Items itemType;
     public LayerMask groundLayer;
-    public Constants.Items itemTag;
 
-    void Start() {
-        id = id++;
+    public void Init(Constants.Items itemType) {
+        this.itemType = itemType;
+
         rb2d = GetComponent<Rigidbody2D>();
         renderer = GetComponent<SpriteRenderer>();
+
         state = State.FALLING;
         rb2d.velocity = new Vector2(0, -fallingSpeed);
+
+        initialized = true;
     }
 
     void Update() {
-        switch (state) {
-            case State.FALLING:
-                FallingUpdate();
-                break;
-            case State.GROUNDED:
-                GroundedUpdate();
-                break;
-            case State.PICKED_UP:
-                PickedUpUpdate();
-                break;
+        if (initialized) {
+            switch (state) {
+                case State.FALLING:
+                    FallingUpdate();
+                    break;
+                case State.GROUNDED:
+                    GroundedUpdate();
+                    break;
+                case State.PICKED_UP:
+                    PickedUpUpdate();
+                    break;
+            }
         }
     }
 

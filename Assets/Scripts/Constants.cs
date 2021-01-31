@@ -47,6 +47,7 @@ public class Constants {
     public enum Shoe {
         COWBOY_BOOTS,
         DRESS_SHOES,
+        MYSTERY,
         SNEAKERS,
         TENNIS_SHOES,
         SLIPPERS,
@@ -69,6 +70,20 @@ public class Constants {
         {Items.WHEAT, People.FARMER},
         {Items.PURSE, People.GIRL},
         {Items.PRISON_KEY, People.PRISONER}
+    };
+
+    static public IDictionary<People, (Outfit, Shoe)> personToOutfit = new Dictionary<People, (Outfit, Shoe)>() {
+        {People.COWBOY, (Outfit.JEANS, Shoe.COWBOY_BOOTS)},
+        {People.BUSINESS_MAN, (Outfit.BUSINESS_PANTS, Shoe.DRESS_SHOES)},
+        {People.BRIDE, (Outfit.WEDDING_DRESS, Shoe.MYSTERY)},
+        {People.GUY, (Outfit.CARGO_PANTS, Shoe.SNEAKERS)},
+        {People.KID, (Outfit.SHORTS, Shoe.TENNIS_SHOES)},
+        {People.SLEEPY_PERSON, (Outfit.SWEATPANTS, Shoe.SLIPPERS)},
+        {People.BEACH_GOER, (Outfit.SWIM_TRUNKS, Shoe.FLIP_FLOPS)},
+        {People.ARMY_PERSON, (Outfit.CAMO_PANTS, Shoe.ARMY_BOOTS)},
+        {People.FARMER, (Outfit.OVERALLS, Shoe.FARMER_BOOTS)},
+        {People.GIRL, (Outfit.SKIRT, Shoe.HIGH_HEELS)},
+        {People.PRISONER, (Outfit.PRISON_OVERALLS, Shoe.SHACKLES)}
     };
 
     public const int OFFSCREEN_X = 11;
