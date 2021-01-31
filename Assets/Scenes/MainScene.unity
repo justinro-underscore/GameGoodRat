@@ -260,7 +260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -282.8, y: -102.2}
+  m_AnchoredPosition: {x: -200.7, y: -102.2}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &356482054
@@ -463,7 +463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 46.62, y: -31.01}
+  m_AnchoredPosition: {x: -32.4, y: -31.01}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &473196019
@@ -1291,11 +1291,13 @@ MonoBehaviour:
   ring: {fileID: 21300000, guid: e9dbb1d89c0f4f340a412778f5d8c394, type: 3}
   sunscreen: {fileID: 21300000, guid: 135b83f76a542de488bf8e4e72e89742, type: 3}
   wrench: {fileID: 21300000, guid: b4faaf4f1c7144045ad333f356190a90, type: 3}
+  phone: {fileID: 21300000, guid: c36919de3394cbd49a29419c3f564165, type: 3}
   cowboy: {fileID: 21300000, guid: 710e18acc78b0be42bdfdb7683d8eecf, type: 3}
   businessMan: {fileID: 21300000, guid: e3b66b817e3391c4f8a2c7e657d6fa2a, type: 3}
   woman: {fileID: 21300000, guid: d66dfc719ded9594eb67d44944188e1f, type: 3}
   swimmer: {fileID: 21300000, guid: 52420795d51c353419467df810ba86d1, type: 3}
   worker: {fileID: 21300000, guid: 3c6bb68227d09a54489f0c019112eca0, type: 3}
+  runner: {fileID: 21300000, guid: 3537af67acd987340ab5ee06ae32ac45, type: 3}
 --- !u!4 &887790039
 Transform:
   m_ObjectHideFlags: 0
@@ -7441,7 +7443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50.21, y: -30.4}
+  m_AnchoredPosition: {x: 34.23, y: -30.4}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &5127350954554968705
