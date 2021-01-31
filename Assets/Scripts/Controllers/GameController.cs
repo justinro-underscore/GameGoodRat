@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour {
         score = 0;
         playerInitials = "AAA";
 
-        SpawnWalker();
+        // SpawnWalker();
     }
 
     void Update() {

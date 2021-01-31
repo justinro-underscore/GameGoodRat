@@ -104,11 +104,25 @@ public class Item : MonoBehaviour {
         renderer.enabled = true;
         state = State.PICKED_UP;
         rb2d.velocity = Vector2.zero;
+
+        ParticleSystem ps = transform.Find( "Particle System" ).GetComponent<ParticleSystem>();
+        var col = ps.colorOverLifetime;
+
+        Gradient grad = new Gradient();
+        grad.alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(0.3f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) };
+        col.color = grad;
     }
 
     public void DropItem() {
         state = State.FALLING;
         rb2d.velocity = new Vector2(0, -fallingSpeed);
         transform.position += new Vector3(0, 0.2f);
+
+        ParticleSystem ps = transform.Find( "Particle System" ).GetComponent<ParticleSystem>();
+        var col = ps.colorOverLifetime;
+
+        Gradient grad = new Gradient();
+        grad.alphaKeys = new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) };
+        col.color = grad;
     }
 }
