@@ -114,8 +114,8 @@ public class PlayerController : MonoBehaviour {
                         return;
                     }
 
-                    overItems.Remove(collider);
-                    overItems.Add(collider);
+                    overLegs.Remove(collider);
+                    overLegs.Add(collider);
                     attachedLeg = collider;
                     (attachedLeg.transform.parent.GetComponent<Leg>() as Leg).ToggleShoeCollider(true);
                     lastLegPosY = attachedLeg.transform.position.y;
