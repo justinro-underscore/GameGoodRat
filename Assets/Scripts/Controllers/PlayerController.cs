@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
     };
     
     private Rigidbody2D rb2d;
-    private SpriteRenderer renderer;
+    private new SpriteRenderer renderer;
     private State state;
 
     private float pickedUpItemTime = 0;

@@ -22,7 +22,7 @@ public class Item : MonoBehaviour {
 
     private bool initialized = false;
     private Rigidbody2D rb2d;
-    private SpriteRenderer renderer;
+    private new SpriteRenderer renderer;
     private State state;
 
     private Vector2 startFloatingPos = new Vector2();
