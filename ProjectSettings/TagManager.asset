@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
-  - Leg
   - Shoe
+  - Pants
   layers:
   - Default
   - TransparentFX

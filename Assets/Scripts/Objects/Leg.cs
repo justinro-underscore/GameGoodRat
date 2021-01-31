@@ -77,7 +77,7 @@ public class Leg : MonoBehaviour {
     }
 
     private void FallingUpdate() {
-        RaycastHit2D hitGround = Physics2D.Raycast( transform.position, Vector2.down, 1.7f, groundLayer );
+        RaycastHit2D hitGround = Physics2D.Raycast( transform.position, Vector2.down, 4.8f, groundLayer );
         if ( hitGround.collider != null ) {
             shoeBoxColliders[0].enabled = false;
 

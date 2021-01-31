@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.CompareTag("Item")) {
             overItems.Add(other);
         }
-        else if (other.gameObject.CompareTag("Leg")) {
+        else if (other.gameObject.CompareTag("Pants")) {
             overLegs.Add(other);
         }
         else if (other.gameObject.CompareTag("Shoe") && state == State.GROUNDED) {
@@ -217,7 +217,7 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.CompareTag("Item")) {
             overItems.Remove(other);
         }
-        else if (other.gameObject.CompareTag("Leg")) {
+        else if (other.gameObject.CompareTag("Pants")) {
             overLegs.Remove(other);
         }
     }

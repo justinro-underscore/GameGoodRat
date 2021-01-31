@@ -1256,7 +1256,6 @@ MonoBehaviour:
     type: 3}
   walkerPrefab: {fileID: 487714521764043515, guid: bfec9df8adf79332193b61690651d893,
     type: 3}
-  legFallingSpeed: 10
 --- !u!1 &932051921
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,7 +1592,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 10f183bc02969e545aee6423b94cedac, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
