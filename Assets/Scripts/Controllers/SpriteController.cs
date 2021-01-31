@@ -10,12 +10,14 @@ public class SpriteController : MonoBehaviour {
     public Sprite ring;
     public Sprite sunscreen;
     public Sprite wrench;
+    public Sprite phone;
 
     public Sprite cowboy;
     public Sprite businessMan;
     public Sprite woman;
     public Sprite swimmer;
     public Sprite worker;
+    public Sprite runner;
 
     void Start() {
         if (instance == null) {
