@@ -47,8 +47,8 @@ public class Leg : MonoBehaviour {
         this.movementX = movementX;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        // TODO Use spriteRenderer to use outfit and shoe
-        // (Constants.Outfit outfit, Constants.Shoe shoe) = Constants.personToOutfit[personType];
+        Constants.Outfit outfit = Constants.personToOutfit[personType];
+        spriteRenderer.sprite = Constants.outfitSprites[outfit];
         spriteRenderer.flipX = !walkingLeft;
 
         _Start();

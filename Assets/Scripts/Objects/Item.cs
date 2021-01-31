@@ -38,6 +38,7 @@ public class Item : MonoBehaviour {
 
         rb2d = GetComponent<Rigidbody2D>();
         renderer = GetComponent<SpriteRenderer>();
+        renderer.sprite = Constants.itemSprites[itemType];
 
         state = State.FALLING;
         rb2d.velocity = new Vector2(0, -fallingSpeed);

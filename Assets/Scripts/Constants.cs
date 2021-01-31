@@ -1,89 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Constants {
     public enum Items {
         SIX_SHOOTER,
-        BRIEFCASE,
-        WEDDING_RING,
-        PHONE,
-        ICE_CREAM,
-        TEDDY_BEAR,
-        SUNSCREEN,
-        DOG_TAGS,
-        WHEAT,
-        PURSE,
-        PRISON_KEY
+        WATCH,
+        RING,
+        SUNSCREEN
     };
     
     public enum People {
         COWBOY,
         BUSINESS_MAN,
-        BRIDE,
-        GUY,
-        KID,
-        SLEEPY_PERSON,
-        BEACH_GOER,
-        ARMY_PERSON,
-        FARMER,
-        GIRL,
-        PRISONER
+        WOMAN,
+        SWIMMER
     };
 
     public enum Outfit {
-        JEANS,
+        JEANS_W_COWBOY_BOOTS,
         BUSINESS_PANTS,
-        WEDDING_DRESS,
-        CARGO_PANTS,
-        SHORTS,
-        SWEATPANTS,
-        SWIM_TRUNKS,
-        CAMO_PANTS,
-        OVERALLS,
-        SKIRT,
-        PRISON_OVERALLS
-    };
-
-    public enum Shoe {
-        COWBOY_BOOTS,
-        DRESS_SHOES,
-        MYSTERY,
-        SNEAKERS,
-        TENNIS_SHOES,
-        SLIPPERS,
-        FLIP_FLOPS,
-        ARMY_BOOTS,
-        FARMER_BOOTS,
-        HIGH_HEELS,
-        SHACKLES
+        RED_DRESS,
+        SWIM_TRUNKS
     };
 
     static public IDictionary<People, Items> personToItem = new Dictionary<People, Items>() {
         {People.COWBOY, Items.SIX_SHOOTER},
-        {People.BUSINESS_MAN, Items.BRIEFCASE},
-        {People.BRIDE, Items.WEDDING_RING},
-        {People.GUY, Items.PHONE},
-        {People.KID, Items.ICE_CREAM},
-        {People.SLEEPY_PERSON, Items.TEDDY_BEAR},
-        {People.BEACH_GOER, Items.SUNSCREEN},
-        {People.ARMY_PERSON, Items.DOG_TAGS},
-        {People.FARMER, Items.WHEAT},
-        {People.GIRL, Items.PURSE},
-        {People.PRISONER, Items.PRISON_KEY}
+        {People.BUSINESS_MAN, Items.WATCH},
+        {People.WOMAN, Items.RING},
+        {People.SWIMMER, Items.SUNSCREEN}
     };
 
-    static public IDictionary<People, (Outfit, Shoe)> personToOutfit = new Dictionary<People, (Outfit, Shoe)>() {
-        {People.COWBOY, (Outfit.JEANS, Shoe.COWBOY_BOOTS)},
-        {People.BUSINESS_MAN, (Outfit.BUSINESS_PANTS, Shoe.DRESS_SHOES)},
-        {People.BRIDE, (Outfit.WEDDING_DRESS, Shoe.MYSTERY)},
-        {People.GUY, (Outfit.CARGO_PANTS, Shoe.SNEAKERS)},
-        {People.KID, (Outfit.SHORTS, Shoe.TENNIS_SHOES)},
-        {People.SLEEPY_PERSON, (Outfit.SWEATPANTS, Shoe.SLIPPERS)},
-        {People.BEACH_GOER, (Outfit.SWIM_TRUNKS, Shoe.FLIP_FLOPS)},
-        {People.ARMY_PERSON, (Outfit.CAMO_PANTS, Shoe.ARMY_BOOTS)},
-        {People.FARMER, (Outfit.OVERALLS, Shoe.FARMER_BOOTS)},
-        {People.GIRL, (Outfit.SKIRT, Shoe.HIGH_HEELS)},
-        {People.PRISONER, (Outfit.PRISON_OVERALLS, Shoe.SHACKLES)}
+    static public IDictionary<Items, Sprite> itemSprites = new Dictionary<Items, Sprite>() {
+        {Items.SIX_SHOOTER, SpriteController.instance.sixShooter},
+        {Items.WATCH, SpriteController.instance.watch},
+        {Items.RING, SpriteController.instance.ring},
+        {Items.SUNSCREEN, SpriteController.instance.sunscreen}
+    };
+
+    static public IDictionary<People, Outfit> personToOutfit = new Dictionary<People, Outfit>() {
+        {People.COWBOY, Outfit.JEANS_W_COWBOY_BOOTS},
+        {People.BUSINESS_MAN, Outfit.BUSINESS_PANTS},
+        {People.WOMAN, Outfit.RED_DRESS},
+        {People.SWIMMER, Outfit.SWIM_TRUNKS}
+    };
+
+    static public IDictionary<Outfit, Sprite> outfitSprites = new Dictionary<Outfit, Sprite>() {
+        {Outfit.JEANS_W_COWBOY_BOOTS, SpriteController.instance.cowboy},
+        {Outfit.BUSINESS_PANTS, SpriteController.instance.businessMan},
+        {Outfit.RED_DRESS, SpriteController.instance.woman},
+        {Outfit.SWIM_TRUNKS, SpriteController.instance.swimmer}
     };
 
     public const int OFFSCREEN_X = 11;
