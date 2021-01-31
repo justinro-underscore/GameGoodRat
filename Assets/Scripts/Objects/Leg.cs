@@ -98,6 +98,7 @@ public class Leg : MonoBehaviour {
             rigidBody.velocity = new Vector2( 0, 0 );
             currState = State.GROUNDED;
 
+            // SoundController.instance.PlaySingle("boom");
             otherLeg.StartRising();
         }
     }

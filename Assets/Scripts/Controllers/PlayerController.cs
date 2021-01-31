@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour {
         else if (state == State.PANT_LEG) {
             if (!attachedLeg.bounds.Contains(GetComponent<Collider2D>().bounds.center)) {
                 JumpOffLeg();
+                SoundController.instance.PlaySingle("jumpSound");
                 return;
             }
 
@@ -100,7 +101,9 @@ public class PlayerController : MonoBehaviour {
 
     void OnBecameInvisible() {
         if (state == State.PANT_LEG) {
-            DropOffItem();
+            if (!DropOffItem()) {
+                SoundController.instance.PlaySingle("jumpSound");
+            }
             JumpOffLeg();
         }
         rb2d.velocity = new Vector2(rb2d.velocity.x, 1);
@@ -111,9 +114,9 @@ public class PlayerController : MonoBehaviour {
         state = State.GROUNDED;
     }
     
-    void DropOffItem() {
+    bool DropOffItem() {
         if (collectedItem == null) {
-            return;
+            return false;
         }
 
         GameController.instance.DropOffItem(collectedItem.gameObject, attachedLeg.transform.parent.gameObject);
@@ -122,6 +125,7 @@ public class PlayerController : MonoBehaviour {
         Destroy(collectedItem);
         collectedItem = null;
         UIController.instance.SetText("None", UIController.TextObject.ITEM_TEXT);
+        return true;
     }
 
     bool IsOnGround() {
@@ -167,10 +171,12 @@ public class PlayerController : MonoBehaviour {
                     transform.Rotate(new Vector3(0, 0, 90));
                     rb2d.gravityScale = 0;
                     renderer.flipX = false;
+                    SoundController.instance.PlaySingle("grab");
                 }
             }
             else if (state == State.PANT_LEG) {
                 JumpOffLeg();
+                SoundController.instance.PlaySingle("jumpSound");
             }
         }
     }
@@ -247,6 +253,13 @@ public class PlayerController : MonoBehaviour {
     private void takeDmg() {
         lives -= 1;
         UIController.instance.SetHearts( true );
+        if (lives > 0) {
+            SoundController.instance.PlaySingle("hurt");
+        }
+        else {
+            SoundController.instance.StopMusic();
+            SoundController.instance.PlaySingle("death");
+        }
 
         // bounce back (augment this with direction?)
         rb2d.AddForce( transform.up * 650 + transform.right * 650 );

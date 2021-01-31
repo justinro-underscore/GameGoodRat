@@ -44,11 +44,12 @@ public class GameController : MonoBehaviour {
         score = 0;
         playerInitials = "AAA";
 
-        // StartGame();
+        StartGame();
     }
 
     void Update() {
         if ( gameOver ) {
+            SoundController.instance.PlaySingle("death");
             SceneController.LoadLevel( "HighScore" );
             HighScoreController.hsInstance.ShowHighScore( score );
             Destroy( this.gameObject );
@@ -79,9 +80,11 @@ public class GameController : MonoBehaviour {
 
         if (Constants.personToItem[personType] == itemType) {
             // TODO: make certain items worth more / store point val in item
+            SoundController.instance.PlaySingle("itemCorrect");
             score += 100;
         }
         else {
+            SoundController.instance.PlaySingle("itemWrong");
             score -= 50;
         }
         UIController.instance.SetText( score.ToString(), UIController.TextObject.SCORE_TEXT );

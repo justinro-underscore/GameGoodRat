@@ -7,8 +7,16 @@ public class SoundController : MonoBehaviour {
     public AudioSource efxSource;
     public AudioSource secondaryEfxSource;
     public AudioSource tertiaryEfxSource;
+    public AudioSource musicSource;
 
     public AudioClip jumpSound;
+    public AudioClip death;
+    public AudioClip gameStart;
+    public AudioClip itemCorrect;
+    public AudioClip itemWrong;
+    public AudioClip grab;
+    public AudioClip boom;
+    public AudioClip hurt;
 
     private Hashtable soundEffects;
 
@@ -29,6 +37,13 @@ public class SoundController : MonoBehaviour {
     {
         soundEffects = new Hashtable();
         soundEffects["jumpSound"] = jumpSound;
+        soundEffects["death"] = death;
+        soundEffects["gameStart"] = gameStart;
+        soundEffects["itemCorrect"] = itemCorrect;
+        soundEffects["itemWrong"] = itemWrong;
+        soundEffects["grab"] = grab;
+        soundEffects["boom"] = boom;
+        soundEffects["hurt"] = hurt;
     }
 
     public void PlaySingle(string clipName)
@@ -57,5 +72,15 @@ public class SoundController : MonoBehaviour {
         efxSource.Stop();
         secondaryEfxSource.Stop();
         tertiaryEfxSource.Stop();
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+
+    public void StartMusic()
+    {
+        musicSource.Play();
     }
 }
