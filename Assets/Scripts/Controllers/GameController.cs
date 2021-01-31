@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour {
     private string playerInitials;
     
     public GameObject rat;
+    public GameObject panelText;
 
     public GameObject playerPrefab;
     public GameObject itemPrefab;
@@ -77,6 +78,8 @@ public class GameController : MonoBehaviour {
         walkerSpawnerTime = startWalkerSpawnerTime;
         currNumLegs = 0;
         rat.SetActive(true);
+        rat.transform.position = new Vector2(0, 0);
+        panelText.SetActive(true);
         Invoke("TrySpawningWalker", 0.5f);
     }
 
@@ -138,6 +141,8 @@ public class GameController : MonoBehaviour {
 
     void RunLeaderBoard() {
         if ( Input.GetKeyDown( KeyCode.Return ) ) {
+            rat.SetActive(false);
+            panelText.SetActive(false);
             SceneController.LoadLevel( SceneController.Level.MAIN_MENU );
             LeaderBoardController.lbInstance.Reset();
 
