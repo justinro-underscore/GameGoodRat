@@ -8,32 +8,24 @@ public class Leg : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidBody;
     private BoxCollider2D[] shoeBoxColliders;
-
+    
     [Range(0, 10)]
     [SerializeField]
     private float fallingSpeed = 0f;
-
-    [Range(0, 10)]
-    [SerializeField]
-    private float risingSpeed = 0f;
-
     [Range(0, 10)]
     [SerializeField]
     private float secondsSpentOnGround = 0f;
-
-    [Range(0, 5)]
+    [Range(0, 10)]
     [SerializeField]
-    private float secondsSpentRising = 0f;
-
-    [Range(0, 5)]
+    private float movementX = 0f;
+    [Range(0, 15)]
     [SerializeField]
-    private float howFarToMove = 0f;
+    private float movementY = 0f;
 
     private enum State {
         FALLING,
         GROUNDED,
-        RISING,
-        MOVING
+        RISING
     };
 
     private State currState;
@@ -44,13 +36,12 @@ public class Leg : MonoBehaviour {
     private bool droppedItem = false;
     private float movementStartX;
     private float timeHitGround = 0f;
-    private float timeStartedRising = 0f;
 
     public Constants.People personType;
     public GameObject itemPrefab;
     public LayerMask groundLayer;
 
-    public void SetParams( float walkingSpeed, bool walkingLeft, Constants.People personType, Constants.Outfit outfitType, Constants.Shoe shoeType ) {
+    public void Init( float walkingSpeed, bool walkingLeft, Constants.People personType, Constants.Outfit outfitType, Constants.Shoe shoeType ) {
         this.walkingSpeed = walkingSpeed;
         this.walkingLeft = walkingLeft;
         this.personType = personType;
@@ -83,9 +74,6 @@ public class Leg : MonoBehaviour {
                 case State.RISING:
                     RisingUpdate();
                     break;
-                case State.MOVING:
-                    MovementUpdate();
-                    break;
             }
         }
     }
@@ -107,33 +95,20 @@ public class Leg : MonoBehaviour {
         }
     }
 
-    private void DropItem() {
-        GameObject item = Instantiate(itemPrefab, new Vector3(transform.position.x, Constants.OFFSCREEN_Y + 1), Quaternion.identity);
-        (item.GetComponent<Item>() as Item).Init(Constants.personToItem[personType]);
-        droppedItem = true;
-    }
-
     private void GroundedUpdate() {
         float timeSinceLanded = Time.fixedTime - timeHitGround;
         if ( timeSinceLanded > secondsSpentOnGround ) {
             currState = State.RISING;
-            rigidBody.velocity = new Vector2( 0, risingSpeed );
-            timeStartedRising = Time.fixedTime;
+            Vector2 velocityVector = new Vector2( walkingLeft ? -movementX : movementX, movementY );
+            velocityVector.Normalize();
+            rigidBody.velocity = velocityVector * walkingSpeed;
+            movementStartX = transform.position.x;
         }
     }
 
     private void RisingUpdate() {
-        float delta = Time.fixedTime - timeStartedRising;
-        if ( delta > secondsSpentRising ) {
-            currState = State.MOVING;
-            movementStartX = transform.position.x;
-            rigidBody.velocity = new Vector2( walkingSpeed * (walkingLeft ? -1 : 1), 0 );
-        }
-    }
-
-    private void MovementUpdate() {
-        if ((walkingLeft && transform.position.x < (movementStartX - howFarToMove)) ||
-            (!walkingLeft && transform.position.x > (movementStartX + howFarToMove))) {
+        if ((walkingLeft && transform.position.x < (movementStartX - movementX)) ||
+            (!walkingLeft && transform.position.x > (movementStartX + movementX))) {
             shoeBoxColliders[0].enabled = true;
 
             currState = State.FALLING;
@@ -145,6 +120,12 @@ public class Leg : MonoBehaviour {
             (!walkingLeft && viewPos.x > 1.1f)) {
             Destroy( gameObject );
         }
+    }
+
+    private void DropItem() {
+        GameObject item = Instantiate(itemPrefab, new Vector3(transform.position.x, Constants.OFFSCREEN_Y + 1), Quaternion.identity);
+        (item.GetComponent<Item>() as Item).Init(Constants.personToItem[personType]);
+        droppedItem = true;
     }
 
     public void ToggleShoeCollider(bool enabled) {

@@ -1256,6 +1256,7 @@ MonoBehaviour:
     type: 3}
   walkerPrefab: {fileID: 487714521764043515, guid: bfec9df8adf79332193b61690651d893,
     type: 3}
+  legFallingSpeed: 10
 --- !u!1 &932051921
 GameObject:
   m_ObjectHideFlags: 0

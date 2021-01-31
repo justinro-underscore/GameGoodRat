@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
     private List<Collider2D> overLegs;
     private GameObject collectedItem = null;
     private Collider2D attachedLeg = null;
-    private float lastLegPosY;
+    private Vector3 lastLegPos;
 
     public LayerMask groundLayer;
 
@@ -75,9 +75,15 @@ public class PlayerController : MonoBehaviour {
             rb2d.velocity = new Vector2(x * speed, rb2d.velocity.y);
         }
         else if (state == State.PANT_LEG) {
-            float legDiffY = attachedLeg.transform.position.y - lastLegPosY;
-            lastLegPosY = attachedLeg.transform.position.y;
-            transform.position += new Vector3(0, legDiffY);
+            if (!attachedLeg.bounds.Contains(GetComponent<Collider2D>().bounds.center)) {
+                JumpOffLeg();
+                return;
+            }
+
+            Vector3 legDiff = attachedLeg.transform.position - lastLegPos;
+            lastLegPos = attachedLeg.transform.position;
+            transform.position += new Vector3(legDiff.x, legDiff.y, 0);
+
 
             rb2d.velocity = new Vector2(0, x * speed);
         }
@@ -132,7 +138,7 @@ public class PlayerController : MonoBehaviour {
                     overLegs.Add(collider);
                     attachedLeg = collider;
                     (attachedLeg.transform.parent.GetComponent<Leg>() as Leg).ToggleShoeCollider(true);
-                    lastLegPosY = attachedLeg.transform.position.y;
+                    lastLegPos = attachedLeg.transform.position;
                     state = State.PANT_LEG;
                     rb2d.velocity = Vector2.zero;
                     transform.Rotate(new Vector3(0, 0, 90));

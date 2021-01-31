@@ -310,11 +310,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1121ef404972a4921a35b85e04fa12e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallingSpeed: 4.9
-  risingSpeed: 4.2
-  secondsSpentOnGround: 2.3
-  secondsSpentRising: 2.25
-  howFarToMove: 5
+  fallingSpeed: 9.1
+  secondsSpentOnGround: 2.1
+  movementX: 7.6
+  movementY: 11.8
+  personType: 0
   itemPrefab: {fileID: 2268130389608006419, guid: 4f51a41b390de174ab24164d6ed85b3c,
     type: 3}
   groundLayer:
