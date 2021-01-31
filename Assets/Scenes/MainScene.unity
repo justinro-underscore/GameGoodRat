@@ -1290,10 +1290,12 @@ MonoBehaviour:
   watch: {fileID: 21300000, guid: 12144725ccf854a4ca89851da790165f, type: 3}
   ring: {fileID: 21300000, guid: e9dbb1d89c0f4f340a412778f5d8c394, type: 3}
   sunscreen: {fileID: 21300000, guid: 135b83f76a542de488bf8e4e72e89742, type: 3}
+  wrench: {fileID: 21300000, guid: b4faaf4f1c7144045ad333f356190a90, type: 3}
   cowboy: {fileID: 21300000, guid: 710e18acc78b0be42bdfdb7683d8eecf, type: 3}
   businessMan: {fileID: 21300000, guid: e3b66b817e3391c4f8a2c7e657d6fa2a, type: 3}
   woman: {fileID: 21300000, guid: d66dfc719ded9594eb67d44944188e1f, type: 3}
   swimmer: {fileID: 21300000, guid: 52420795d51c353419467df810ba86d1, type: 3}
+  worker: {fileID: 21300000, guid: 3c6bb68227d09a54489f0c019112eca0, type: 3}
 --- !u!4 &887790039
 Transform:
   m_ObjectHideFlags: 0

@@ -7,21 +7,24 @@ public class Constants {
         SIX_SHOOTER,
         WATCH,
         RING,
-        SUNSCREEN
+        SUNSCREEN,
+        WRENCH
     };
     
     public enum People {
         COWBOY,
         BUSINESS_MAN,
         WOMAN,
-        SWIMMER
+        SWIMMER,
+        CONSTRUCTION_WORKER
     };
 
     public enum Outfit {
         JEANS_W_COWBOY_BOOTS,
         BUSINESS_PANTS,
         RED_DRESS,
-        SWIM_TRUNKS
+        SWIM_TRUNKS,
+        CONSTRUCTION
     };
 
     static public List<Outfit> bareLegs = new List<Outfit>(){ Outfit.RED_DRESS, Outfit.SWIM_TRUNKS };
@@ -30,28 +33,32 @@ public class Constants {
         {People.COWBOY, Items.SIX_SHOOTER},
         {People.BUSINESS_MAN, Items.WATCH},
         {People.WOMAN, Items.RING},
-        {People.SWIMMER, Items.SUNSCREEN}
+        {People.SWIMMER, Items.SUNSCREEN},
+        {People.CONSTRUCTION_WORKER, Items.WRENCH}
     };
 
     static public IDictionary<Items, Sprite> itemSprites = new Dictionary<Items, Sprite>() {
         {Items.SIX_SHOOTER, SpriteController.instance.sixShooter},
         {Items.WATCH, SpriteController.instance.watch},
         {Items.RING, SpriteController.instance.ring},
-        {Items.SUNSCREEN, SpriteController.instance.sunscreen}
+        {Items.SUNSCREEN, SpriteController.instance.sunscreen},
+        {Items.WRENCH, SpriteController.instance.wrench}
     };
 
     static public IDictionary<People, Outfit> personToOutfit = new Dictionary<People, Outfit>() {
         {People.COWBOY, Outfit.JEANS_W_COWBOY_BOOTS},
         {People.BUSINESS_MAN, Outfit.BUSINESS_PANTS},
         {People.WOMAN, Outfit.RED_DRESS},
-        {People.SWIMMER, Outfit.SWIM_TRUNKS}
+        {People.SWIMMER, Outfit.SWIM_TRUNKS},
+        {People.CONSTRUCTION_WORKER, Outfit.CONSTRUCTION}
     };
 
     static public IDictionary<Outfit, Sprite> outfitSprites = new Dictionary<Outfit, Sprite>() {
         {Outfit.JEANS_W_COWBOY_BOOTS, SpriteController.instance.cowboy},
         {Outfit.BUSINESS_PANTS, SpriteController.instance.businessMan},
         {Outfit.RED_DRESS, SpriteController.instance.woman},
-        {Outfit.SWIM_TRUNKS, SpriteController.instance.swimmer}
+        {Outfit.SWIM_TRUNKS, SpriteController.instance.swimmer},
+        {Outfit.CONSTRUCTION, SpriteController.instance.worker}
     };
 
     public const int OFFSCREEN_X = 11;

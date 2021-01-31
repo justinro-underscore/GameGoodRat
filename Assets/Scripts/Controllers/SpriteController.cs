@@ -9,11 +9,13 @@ public class SpriteController : MonoBehaviour {
     public Sprite watch;
     public Sprite ring;
     public Sprite sunscreen;
+    public Sprite wrench;
 
     public Sprite cowboy;
     public Sprite businessMan;
     public Sprite woman;
     public Sprite swimmer;
+    public Sprite worker;
 
     void Start() {
         if (instance == null) {
