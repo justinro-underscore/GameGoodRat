@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Leg : MonoBehaviour {
+    private static int sortingOrderStatic = 0;
+    public int sortingOrder;
+
     private bool initialized = false;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidBody;
@@ -46,11 +49,14 @@ public class Leg : MonoBehaviour {
         this.walkingLeft = walkingLeft;
         this.personType = personType;
         this.movementX = movementX;
+        this.sortingOrder = Leg.sortingOrderStatic;
+        Leg.sortingOrderStatic += 2; // Leave room for Marshall
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         Constants.Outfit outfit = Constants.personToOutfit[personType];
         spriteRenderer.sprite = Constants.outfitSprites[outfit];
         spriteRenderer.flipX = !walkingLeft;
+        spriteRenderer.sortingOrder = sortingOrder;
 
         Transform pants = transform.Find( "Pants" );
         Transform shoe = transform.Find( "Shoe" );

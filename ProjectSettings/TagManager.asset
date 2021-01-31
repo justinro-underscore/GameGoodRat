@@ -47,8 +47,17 @@ TagManager:
   - name: Background
     uniqueID: 257361943
     locked: 0
+  - name: Leg
+    uniqueID: 1660128317
+    locked: 0
   - name: Foreground
     uniqueID: 3369084431
+    locked: 0
+  - name: Marshall
+    uniqueID: 2857356705
+    locked: 0
+  - name: Item
+    uniqueID: 320317909
     locked: 0
   - name: Rain
     uniqueID: 1011000825

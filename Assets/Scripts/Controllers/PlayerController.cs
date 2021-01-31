@@ -132,16 +132,29 @@ public class PlayerController : MonoBehaviour {
                     SoundController.instance.PlaySingle("jumpSound");
                 }
                 else if (overLegs.Count > 0) {
-                    Collider2D collider = overLegs[0];
-                    Bounds ratBounds = GetComponent<Collider2D>().bounds;
-                    if (!collider.bounds.Contains(ratBounds.center)) {
+                    overLegs.Sort(delegate(Collider2D x, Collider2D y)
+                    {
+                        return (y.transform.parent.GetComponent<Leg>() as Leg).sortingOrder.CompareTo(
+                            (x.transform.parent.GetComponent<Leg>() as Leg).sortingOrder);
+                    });
+
+                    for (int i = 0; i < overLegs.Count; i++) {
+                        Collider2D collider = overLegs[i];
+                        Bounds ratBounds = GetComponent<Collider2D>().bounds;
+                        if (collider.bounds.Contains(ratBounds.center)) {
+                            attachedLeg = collider;
+                            break;
+                        }
+                    }
+                    if (attachedLeg == null) {
                         return;
                     }
+                    Leg attachedLegLeg = attachedLeg.transform.parent.GetComponent<Leg>() as Leg;
+                    Debug.Log(attachedLegLeg.personType);
+                    renderer.sortingLayerName = "Leg";
+                    renderer.sortingOrder = attachedLegLeg.sortingOrder + 1;
 
-                    overLegs.Remove(collider);
-                    overLegs.Add(collider);
-                    attachedLeg = collider;
-                    (attachedLeg.transform.parent.GetComponent<Leg>() as Leg).ToggleShoeCollider(true);
+                    attachedLegLeg.ToggleShoeCollider(true);
                     lastLegPos = attachedLeg.transform.position;
                     state = State.PANT_LEG;
                     rb2d.velocity = Vector2.zero;
@@ -162,6 +175,7 @@ public class PlayerController : MonoBehaviour {
         rb2d.gravityScale = 1;
         (attachedLeg.transform.parent.GetComponent<Leg>() as Leg).ToggleShoeCollider(false);
         attachedLeg = null;
+        renderer.sortingLayerName = "Marshall";
     }
 
     void BetterJump() {

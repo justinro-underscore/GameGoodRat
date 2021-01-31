@@ -1645,7 +1645,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -925882865
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 10f183bc02969e545aee6423b94cedac, type: 3}
   m_Color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0}
@@ -2721,7 +2721,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1011000825
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -7508,66 +7508,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151384, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151384, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5127350952718151385, guid: 28983b55cbd71014cad071be5e722a02,
         type: 3}
       propertyPath: m_Name
       value: Rat
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151386, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151386, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 2b77d01a91e481e468b784a6a2401c57,
-        type: 3}
-    - target: {fileID: 5127350952718151386, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151386, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151386, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151389, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.0028273612
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151389, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151389, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 5127350952718151389, guid: 28983b55cbd71014cad071be5e722a02,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.5970814
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28983b55cbd71014cad071be5e722a02, type: 3}
