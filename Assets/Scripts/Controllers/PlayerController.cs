@@ -18,10 +18,12 @@ public class PlayerController : MonoBehaviour {
 
     private enum State {
         GROUNDED,
-        PANT_LEG
+        PANT_LEG,
+        OFF_SCREEN
     };
     
     private Rigidbody2D rb2d;
+    private SpriteRenderer renderer;
     private State state;
 
     private float pickedUpItemTime = 0;
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour {
 
     protected void Start() {
         rb2d = GetComponent<Rigidbody2D>();
+        renderer = GetComponent<SpriteRenderer>();
         overItems = new List<Collider2D>();
         overLegs = new List<Collider2D>();
         state = State.GROUNDED;
@@ -61,10 +64,17 @@ public class PlayerController : MonoBehaviour {
 
     void Move() {
         float x = Input.GetAxisRaw("Horizontal");
+        if (x > 0 && renderer.flipX) {
+            renderer.flipX = false;
+        }
+        else if (x < 0 && !renderer.flipX) {
+            renderer.flipX = true;
+        }
+
         if (state == State.GROUNDED) {
             rb2d.velocity = new Vector2(x * speed, rb2d.velocity.y);
         }
-        else {
+        else if (state == State.PANT_LEG) {
             float legDiffY = attachedLeg.transform.position.y - lastLegPosY;
             lastLegPosY = attachedLeg.transform.position.y;
             transform.position += new Vector3(0, legDiffY);
@@ -74,10 +84,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnBecameInvisible() {
+        rb2d.velocity = new Vector2(rb2d.velocity.x, 1);
         if (state == State.PANT_LEG) {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, 1);
             JumpOffLeg();
         }
+        state = State.OFF_SCREEN;
+    }
+
+    void OnBecameVisible() {
+        state = State.GROUNDED;
     }
 
     bool IsOnGround() {
@@ -95,7 +110,7 @@ public class PlayerController : MonoBehaviour {
                 else if (overLegs.Count > 0) {
                     Collider2D collider = overLegs[0];
                     Bounds ratBounds = GetComponent<Collider2D>().bounds;
-                    if (!(collider.bounds.Contains(ratBounds.min) && collider.bounds.Contains(ratBounds.max))) {
+                    if (!collider.bounds.Contains(ratBounds.center)) {
                         return;
                     }
 
@@ -108,6 +123,7 @@ public class PlayerController : MonoBehaviour {
                     rb2d.velocity = Vector2.zero;
                     transform.Rotate(new Vector3(0, 0, 90));
                     rb2d.gravityScale = 0;
+                    renderer.flipX = false;
                 }
             }
             else if (state == State.PANT_LEG) {
