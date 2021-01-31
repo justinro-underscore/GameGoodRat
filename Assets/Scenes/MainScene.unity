@@ -1250,6 +1250,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3036ef775b8665a47ab00894cfe75e33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minNumberOfLegs: 2
+  maxNumberOfLegs: 10
+  currNumLegs: 0
+  startWalkerSpawnerTime: 3
+  minWalkerSpawnerTime: 1
   playerPrefab: {fileID: 5127350952718151385, guid: 28983b55cbd71014cad071be5e722a02,
     type: 3}
   itemPrefab: {fileID: 2268130389608006419, guid: 4f51a41b390de174ab24164d6ed85b3c,

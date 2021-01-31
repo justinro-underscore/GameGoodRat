@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     };
     
     private Rigidbody2D rb2d;
+    private Animator animator;
     private new SpriteRenderer renderer;
     private State state;
 
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 
     protected void Start() {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         renderer = GetComponent<SpriteRenderer>();
         overItems = new List<Collider2D>();
         overLegs = new List<Collider2D>();
@@ -64,6 +66,9 @@ public class PlayerController : MonoBehaviour {
         if ( hasDied() ) {
             GameController.instance.gameOver = true;
         }
+
+        animator.SetFloat("Horizontal", state == State.GROUNDED ? rb2d.velocity.x : rb2d.velocity.y);
+        animator.SetFloat("Vertical", state == State.GROUNDED ? rb2d.velocity.y : rb2d.velocity.x);
 	}
 
     void Move() {
@@ -120,7 +125,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     bool IsOnGround() {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.7f, groundLayer);
+        Debug.Log(hit.collider != null);
         return hit.collider != null;
     }
 

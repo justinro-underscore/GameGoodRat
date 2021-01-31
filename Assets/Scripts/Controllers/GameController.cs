@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour {
         score = 0;
         playerInitials = "AAA";
 
-        StartGame();
+        // StartGame();
     }
 
     void Update() {
