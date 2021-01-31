@@ -8,9 +8,14 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour {
     public static SceneController scInstance = null;
 
-    public string menuScene;
-    public string mainLevelScene;
-    public string endingScene;
+    public enum Level {
+        MAIN_MENU,
+        MAIN_LEVEL,
+        HIGH_SCORE,
+        LEADERBOARD
+    };
+
+    private static Level currLevel;
 
     public void Awake() {
         if ( null == scInstance ) {
@@ -21,35 +26,13 @@ public class SceneController : MonoBehaviour {
         }
     }
 
-    public void Update() {
-        string currScene = SceneManager.GetActiveScene().name;
+    public void Update() {}
 
-        if ( menuScene == currScene ) {
-            menuUpdate();
-        } else if ( mainLevelScene == currScene ) {
-            mainLevelUpdate();
-        } else if ( endingScene == currScene ) {
-            endingUpdate();
-        } 
+    public static Level GetCurrentLevel() {
+        return ( currLevel );
     }
 
-    private void menuUpdate() {
-        if ( Input.GetKeyDown( KeyCode.Return ) ) {
-            LoadLevel( mainLevelScene );
-        }  
-    }
-
-    private void mainLevelUpdate() {}
-
-    private void endingUpdate() {
-        if ( Input.GetKeyDown( KeyCode.Return ) ) {
-            LoadLevel( menuScene );
-        }
-    }
-
-    public static void LoadLevel( string levelName ) {
-        if ( levelName != SceneManager.GetActiveScene().name ) {
-            SceneManager.LoadScene( levelName );
-        }
+    public static void LoadLevel( Level level ) {
+        currLevel = level;
     }
 }

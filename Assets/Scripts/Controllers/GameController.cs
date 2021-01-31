@@ -29,8 +29,12 @@ public class GameController : MonoBehaviour {
     public GameObject playerPrefab;
     public GameObject itemPrefab;
     public GameObject walkerPrefab;
+    public GameObject menuBG;
 
     public bool gameOver = false;
+    private bool isRunning;
+
+    private SceneController.Level currentLevel;
 
     void Start() {
         if (instance == null) {
@@ -42,17 +46,10 @@ public class GameController : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         score = 0;
-        playerInitials = "AAA";
+        playerInitials = "";
 
-        // StartGame();
-    }
-
-    void Update() {
-        if ( gameOver ) {
-            SceneController.LoadLevel( "HighScore" );
-            HighScoreController.hsInstance.ShowHighScore( score );
-            Destroy( this.gameObject );
-        }
+        // Start with menu level
+        SceneController.LoadLevel( SceneController.Level.MAIN_MENU );
     }
 
     void StartGame() {
@@ -70,7 +67,78 @@ public class GameController : MonoBehaviour {
             numLegs = Mathf.Min(numLegs + 1, maxNumberOfLegs);
             walkerSpawnerTime = Mathf.Max(minWalkerSpawnerTime, walkerSpawnerTime - 0.1f);
         }
+
         Invoke("TrySpawningWalker", walkerSpawnerTime);
+    }
+
+    void StopGame() {
+        CancelInvoke( "TrySpawningWalker" );
+    }
+
+    void Update() {
+        switch( SceneController.GetCurrentLevel() ) {
+            case SceneController.Level.MAIN_MENU:
+                RunMenu();
+                break;
+            case SceneController.Level.MAIN_LEVEL:
+                RunGame();
+                break;
+            case SceneController.Level.HIGH_SCORE:
+                RunHighScore();
+                break;
+            case SceneController.Level.LEADERBOARD:
+                RunLeaderBoard();
+                break;
+        }
+    }
+
+    void RunMenu() {
+        if ( Input.GetKeyDown( KeyCode.Return ) ) {
+            SceneController.LoadLevel( SceneController.Level.MAIN_LEVEL );
+
+            menuBG.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+            PlayerController.StartGame();
+            StartGame();
+        }
+    }
+
+    void RunGame() {
+        UIController.instance.SetText( score.ToString(), UIController.TextObject.SCORE_TEXT );
+        UIController.instance.SetText( LeaderBoardController.lbInstance.GetCurrentScores()[0].score.ToString(), UIController.TextObject.HI_SCORE_TEXT );
+
+        if ( gameOver ) {
+            if ( IsHighScore() ) {
+                SceneController.LoadLevel( SceneController.Level.HIGH_SCORE );
+                HighScoreController.hsInstance.ShowHighScore( score );
+            } else {
+                SceneController.LoadLevel( SceneController.Level.LEADERBOARD );
+                LeaderBoardController.lbInstance.ShowLeaderBoard( score, playerInitials ); 
+            }
+
+            PlayerController.StopGame();
+            StopGame();
+        }
+    }
+
+    void RunHighScore() {
+        if ( Input.GetKeyDown( KeyCode.Return ) ) {
+            SceneController.LoadLevel( SceneController.Level.LEADERBOARD );
+            playerInitials = HighScoreController.hsInstance.GetInitials( false );
+            HighScoreController.hsInstance.Reset();
+
+            LeaderBoardController.lbInstance.PublishScore( playerInitials, score );
+            LeaderBoardController.lbInstance.UpdateScores();
+            LeaderBoardController.lbInstance.ShowLeaderBoard( score, playerInitials );
+        }
+    }
+
+    void RunLeaderBoard() {
+        if ( Input.GetKeyDown( KeyCode.Return ) ) {
+            SceneController.LoadLevel( SceneController.Level.MAIN_MENU );
+            LeaderBoardController.lbInstance.Reset();
+
+            menuBG.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        }
     }
 
     public void DropOffItem(GameObject itemObject, GameObject legObject) {
@@ -92,5 +160,22 @@ public class GameController : MonoBehaviour {
         Array peopleTypes = Enum.GetValues(typeof(Constants.People));
         Constants.People personType = (Constants.People)peopleTypes.GetValue((int)Mathf.Floor(UnityEngine.Random.value * peopleTypes.Length));
         (walker.GetComponent<Walker>() as Walker).Init(UnityEngine.Random.Range(5f, 20f), UnityEngine.Random.value <= 0.5f, personType);
+    }
+
+    private bool IsHighScore() {
+        bool isHighScore = false;
+
+        foreach ( Score highScore in LeaderBoardController.lbInstance.GetCurrentScores() ) {
+            if ( score > highScore.score ) {
+                isHighScore = true;
+                break;
+            }   
+        }
+
+        if ( 9 > LeaderBoardController.lbInstance.GetCurrentScores().Capacity ) {
+            isHighScore = true;
+        }
+
+        return ( isHighScore );
     }
 }

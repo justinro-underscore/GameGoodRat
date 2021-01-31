@@ -7,14 +7,13 @@ using TMPro;
 public class HighScoreController : MonoBehaviour {
     public static HighScoreController hsInstance = null;
     
-    public TMP_Text scoreText;
-    public TMP_Text initialsText;
-
     private bool running;
     
     private int[] initials;
     private int initialIndex;
     private bool cursorBlink;
+
+    private int userScore = 0;
 
     public void Awake() {
         if ( null == hsInstance ) {
@@ -32,13 +31,14 @@ public class HighScoreController : MonoBehaviour {
 
     public void ShowHighScore( int scoreVal ) {
         running = true;
-        scoreText.text = "<b>New High Score: " + scoreVal + "</b>";
+        userScore = scoreVal;
+        UIController.instance.SetText( "<b>New High Score: " + scoreVal + "</b>", UIController.TextObject.USER_HIGH_SCORE_TEXT );
         InvokeRepeating( "CursorBlinkToggle", 0.0f, 0.5f );
     }
 
     public void Update() {
         if ( running ) {
-            initialsText.text = "Enter Initials: " + GetInitials( true );
+            UIController.instance.SetText( "Enter Initials: " + GetInitials( true ), UIController.TextObject.PLAYER_INITIALS_TEXT );
 
             if ( Input.GetKeyDown( KeyCode.UpArrow ) || Input.GetKeyDown( KeyCode.DownArrow ) ) {
                 bool moveUp = Input.GetKeyDown( KeyCode.UpArrow );
@@ -48,12 +48,6 @@ public class HighScoreController : MonoBehaviour {
             if ( Input.GetKeyDown( KeyCode.RightArrow ) || Input.GetKeyDown( KeyCode.LeftArrow ) ) {
                 bool moveRight = Input.GetKeyDown( KeyCode.RightArrow );
                 MoveCursor( moveRight );
-            }
-
-            if ( Input.GetKeyDown( KeyCode.Return ) ) {
-                running = false;
-                SceneController.LoadLevel( "LeaderBoard" );
-                Destroy( this );
             }
         }
     }
@@ -109,7 +103,7 @@ public class HighScoreController : MonoBehaviour {
         return ( result );
     }
 
-    private void SetCursorBlinkToggle() {
+    private void CursorBlinkToggle() {
         cursorBlink = !( cursorBlink );
     }
 
@@ -122,7 +116,7 @@ public class HighScoreController : MonoBehaviour {
     public void Reset() {
         running = false;
         CancelInvoke( "CursorBlinkToggle" );
-        scoreText.text = "";
-        initialsText.text = "";
+        UIController.instance.SetText( "", UIController.TextObject.USER_HIGH_SCORE_TEXT );
+        UIController.instance.SetText( "", UIController.TextObject.PLAYER_INITIALS_TEXT );
     }
 }
