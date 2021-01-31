@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 2764178475241536232}
   - component: {fileID: 6937768748486785011}
   - component: {fileID: 3300975867692606890}
+  - component: {fileID: 4622827992578878770}
   m_Layer: 0
   m_Name: Shoe
   m_TagString: Shoe
@@ -203,7 +204,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0009634048, y: -0.14419235}
+  m_Offset: {x: 0, y: -0.14419235}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -215,6 +216,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.31801006, y: 0.030267775}
+  m_EdgeRadius: 0
+--- !u!61 &4622827992578878770
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799560235701014560}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
 --- !u!1 &8189229302253916136
 GameObject:
@@ -258,7 +285,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8189229302253916136}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -270,7 +297,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &7328604766235756884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,11 +311,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pantType: 0
-  shoeType: 0
+  shoeType: 4
   fallingSpeed: 4.9
-  risingSpeed: 3.8
+  risingSpeed: 4.2
   secondsSpentOnGround: 2.3
-  secondsSpentRising: 1.5
+  secondsSpentRising: 2.25
   howFarToMove: 5
   groundLayer:
     serializedVersion: 2

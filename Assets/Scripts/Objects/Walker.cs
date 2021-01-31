@@ -23,8 +23,8 @@ public class Walker : MonoBehaviour {
         this.shoeType = shoeType;
 
         Instantiate( leg, new Vector2( Constants.OFFSCREEN_X - 2, Constants.OFFSCREEN_Y * 4 ), Quaternion.identity );
-        Instantiate( leg, new Vector2( Constants.OFFSCREEN_X + 2, 0 ), Quaternion.identity );
-        // Instantiate( leg, new Vector2( 0, 2 ), Quaternion.identity );
+        // Instantiate( leg, new Vector2( Constants.OFFSCREEN_X + 2, 0 ), Quaternion.identity );
+        Instantiate( leg, new Vector2( 0, 2 ), Quaternion.identity );
 
         // Oh god why
         leg.GetComponent<Leg>().SetParams( walkingSpeed, true, pantType, shoeType );    

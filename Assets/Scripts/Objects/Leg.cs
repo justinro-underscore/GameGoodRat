@@ -8,7 +8,7 @@ public class Leg : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidBody;
-    private BoxCollider2D shoeBoxCollider;
+    private BoxCollider2D[] shoeBoxColliders;
 
     [Range(0, 10)]
     [SerializeField]
@@ -59,7 +59,7 @@ public class Leg : MonoBehaviour {
     public void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
-        shoeBoxCollider = transform.Find( "Shoe" ).GetComponent<BoxCollider2D>();
+        shoeBoxColliders = transform.Find( "Shoe" ).GetComponents<BoxCollider2D>();
 
         currState = State.FALLING;
         rigidBody.velocity = new Vector2( 0, -fallingSpeed );
@@ -85,7 +85,7 @@ public class Leg : MonoBehaviour {
     private void FallingUpdate() {
         RaycastHit2D hitGround = Physics2D.Raycast( transform.position, Vector2.down, 1.7f, groundLayer );
         if ( hitGround.collider != null ) {
-            shoeBoxCollider.enabled = false;
+            shoeBoxColliders[0].enabled = false;
 
             rigidBody.velocity = new Vector2( 0, 0 );
             currState = State.GROUNDED;
@@ -114,7 +114,7 @@ public class Leg : MonoBehaviour {
     private void MovementUpdate() {
         if ((walkingLeft && transform.position.x < (movementStartX - howFarToMove)) ||
             (!walkingLeft && transform.position.x > (movementStartX + howFarToMove))) {
-            shoeBoxCollider.enabled = true;
+            shoeBoxColliders[0].enabled = true;
 
             currState = State.FALLING;
             rigidBody.velocity = new Vector2( 0, -fallingSpeed );
@@ -124,5 +124,9 @@ public class Leg : MonoBehaviour {
         if ( viewPos.x < -0.1f ) {
             Destroy( gameObject );
         }
+    }
+
+    public void ToggleShoeCollider(bool enabled) {
+        shoeBoxColliders[1].enabled = enabled;
     }
 }
