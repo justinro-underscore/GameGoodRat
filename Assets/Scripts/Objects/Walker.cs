@@ -11,8 +11,6 @@ public class Walker : MonoBehaviour {
     public GameObject leg;
 
     public void Init (float walkingSpeed, bool walkingLeft, Constants.People personType) {
-        walkingLeft = true;
-
         float distanceX = movementX + UnityEngine.Random.Range(0, 3);
         float offset = UnityEngine.Random.Range(0, distanceX / 3f);
         float secondStartingX = walkingLeft ? Constants.OFFSCREEN_X - offset : -Constants.OFFSCREEN_X + offset; // Onscreen

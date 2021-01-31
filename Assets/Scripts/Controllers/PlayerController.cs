@@ -94,11 +94,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnBecameInvisible() {
-        rb2d.velocity = new Vector2(rb2d.velocity.x, 1);
         if (state == State.PANT_LEG) {
             DropOffItem();
             JumpOffLeg();
         }
+        rb2d.velocity = new Vector2(rb2d.velocity.x, 1);
         state = State.OFF_SCREEN;
     }
 

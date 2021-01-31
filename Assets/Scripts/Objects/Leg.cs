@@ -46,14 +46,15 @@ public class Leg : MonoBehaviour {
         this.personType = personType;
         this.movementX = movementX;
 
-        // TODO Use renderer to use outfit and shoe
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        // TODO Use spriteRenderer to use outfit and shoe
         // (Constants.Outfit outfit, Constants.Shoe shoe) = Constants.personToOutfit[personType];
+        spriteRenderer.flipX = !walkingLeft;
 
         _Start();
     }
 
     void _Start() {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
         shoeBoxColliders = transform.Find( "Shoe" ).GetComponents<BoxCollider2D>();
 
