@@ -7,6 +7,7 @@ public class Leg : MonoBehaviour {
     private bool initialized = false;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidBody;
+    private Collider2D[] legColliders;
     private BoxCollider2D[] shoeBoxColliders;
 
     [Range(0, 10)]
@@ -50,6 +51,9 @@ public class Leg : MonoBehaviour {
         Constants.Outfit outfit = Constants.personToOutfit[personType];
         spriteRenderer.sprite = Constants.outfitSprites[outfit];
         spriteRenderer.flipX = !walkingLeft;
+        
+        legColliders = transform.Find( "Pants" ).GetComponents<Collider2D>();
+        legColliders[Constants.bareLegs.Contains(outfit) ? 1 : 0].enabled = true;
 
         _Start();
     }

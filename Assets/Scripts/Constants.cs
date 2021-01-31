@@ -24,6 +24,8 @@ public class Constants {
         SWIM_TRUNKS
     };
 
+    static public List<Outfit> bareLegs = new List<Outfit>(){ Outfit.RED_DRESS, Outfit.SWIM_TRUNKS };
+
     static public IDictionary<People, Items> personToItem = new Dictionary<People, Items>() {
         {People.COWBOY, Items.SIX_SHOOTER},
         {People.BUSINESS_MAN, Items.WATCH},

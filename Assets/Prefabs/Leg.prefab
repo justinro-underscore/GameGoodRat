@@ -158,7 +158,7 @@ SpriteRenderer:
   m_SortingLayerID: -925882865
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: a23f34a52eee6564ca5cb6feeca519ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d66dfc719ded9594eb67d44944188e1f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -223,6 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3945818252857400799}
   - component: {fileID: 242265137435652913}
+  - component: {fileID: 2737257875944399395}
   m_Layer: 0
   m_Name: Pants
   m_TagString: Pants
@@ -251,7 +252,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8601225788782192668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -270,3 +271,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5273166, y: 2.5986009}
   m_EdgeRadius: 0
+--- !u!60 &2737257875944399395
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8601225788782192668}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.10940495, y: 1.7369213}
+      - {x: -0.18857586, y: 0.53355616}
+      - {x: 0.019000933, y: 0.5279047}
+      - {x: -0.033466697, y: -0.8454983}
+      - {x: 0.39815003, y: -0.8527944}
+      - {x: 0.41132522, y: 1.7390826}
