@@ -71,7 +71,8 @@ public class LeaderBoardController : MonoBehaviour {
     }
 
     public void UpdateScores() {
-        scores = RetrieveScores();
+        scores = new List<Score>();
+        StartCoroutine( GetScores( scores ) );
     }
 
     public List<Score> RetrieveScores() {

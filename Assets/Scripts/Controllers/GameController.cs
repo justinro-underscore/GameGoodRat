@@ -119,7 +119,9 @@ public class GameController : MonoBehaviour {
 
     void RunGame() {
         UIController.instance.SetText( score.ToString(), UIController.TextObject.SCORE_TEXT );
-        UIController.instance.SetText( LeaderBoardController.lbInstance.GetCurrentScores()[0].score.ToString(), UIController.TextObject.HI_SCORE_TEXT );
+        if ( LeaderBoardController.lbInstance.GetCurrentScores().Capacity > 0 ) {
+            UIController.instance.SetText( LeaderBoardController.lbInstance.GetCurrentScores()[0].score.ToString(), UIController.TextObject.HI_SCORE_TEXT );
+        }
 
         if ( gameOver ) {
             if ( IsHighScore() ) {
@@ -142,9 +144,17 @@ public class GameController : MonoBehaviour {
             HighScoreController.hsInstance.Reset();
 
             LeaderBoardController.lbInstance.PublishScore( playerInitials, score );
-            LeaderBoardController.lbInstance.UpdateScores();
-            LeaderBoardController.lbInstance.ShowLeaderBoard( score, playerInitials );
+            Invoke( "UpdateScores", 0.25f );
+            Invoke( "ShowLeaderBoard", 1.0f );   
         }
+    }
+
+    void UpdateScores() {
+        LeaderBoardController.lbInstance.UpdateScores();
+    }
+
+    void ShowLeaderBoard() {
+        LeaderBoardController.lbInstance.ShowLeaderBoard( score, playerInitials );
     }
 
     void RunLeaderBoard() {
