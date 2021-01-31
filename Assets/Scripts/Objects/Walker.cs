@@ -4,18 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Walker : MonoBehaviour {
+    [Range(0, 10)]
+    [SerializeField]
+    private float movementX = 0f;
+
     public GameObject leg;
 
     public void Init (float walkingSpeed, bool walkingLeft, Constants.People personType) {
-        float startingX = walkingLeft ? Constants.OFFSCREEN_X + 2 : -Constants.OFFSCREEN_X - 2;
-        float firstFootForwardStartingX = startingX + (walkingLeft ? -4 : 4);
+        walkingLeft = true;
 
-        // GameObject leg1 = Instantiate( leg, new Vector2( startingX, Constants.OFFSCREEN_Y * 4 ), Quaternion.identity );
-        GameObject leg2 = Instantiate( leg, new Vector2( firstFootForwardStartingX, 0 ), Quaternion.identity );
+        float distanceX = movementX + UnityEngine.Random.Range(0, 3);
+        float offset = UnityEngine.Random.Range(0, distanceX / 3f);
+        float secondStartingX = walkingLeft ? Constants.OFFSCREEN_X - offset : -Constants.OFFSCREEN_X + offset; // Onscreen
+        float firstStartingX = secondStartingX + (walkingLeft ? distanceX / 2f : -distanceX / 2f); // Offscreen
 
-        (Constants.Outfit outfit, Constants.Shoe shoe) = Constants.personToOutfit[personType];
+        Leg leg1 = Instantiate( leg, new Vector2( firstStartingX, Constants.OFFSCREEN_Y ), Quaternion.identity ).GetComponent<Leg>();
+        Leg leg2 = Instantiate( leg, new Vector2( secondStartingX, Constants.OFFSCREEN_Y * 2 ), Quaternion.identity ).GetComponent<Leg>();
 
-        // leg1.GetComponent<Leg>().SetParams(walkingSpeed, walkingLeft, personType, outfit, shoe);    
-        leg2.GetComponent<Leg>().Init(walkingSpeed, walkingLeft, personType, outfit, shoe);    
+        leg1.Init(leg2, walkingSpeed, walkingLeft, personType, distanceX);
+        leg2.Init(leg1, walkingSpeed, walkingLeft, personType, distanceX);
     }
 }

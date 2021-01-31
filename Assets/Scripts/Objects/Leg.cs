@@ -8,19 +8,17 @@ public class Leg : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidBody;
     private BoxCollider2D[] shoeBoxColliders;
-    
+
     [Range(0, 10)]
     [SerializeField]
     private float fallingSpeed = 0f;
-    [Range(0, 10)]
-    [SerializeField]
-    private float secondsSpentOnGround = 0f;
-    [Range(0, 10)]
-    [SerializeField]
-    private float movementX = 0f;
     [Range(0, 15)]
     [SerializeField]
     private float movementY = 0f;
+    private float movementX;
+    [Range(0, 1)]
+    [SerializeField]
+    private float itemProbability = 1f;
 
     private enum State {
         FALLING,
@@ -33,20 +31,23 @@ public class Leg : MonoBehaviour {
     private float walkingSpeed;
     private bool walkingLeft;
 
-    private bool droppedItem = false;
     private float movementStartX;
-    private float timeHitGround = 0f;
 
+    public Leg otherLeg;
+    public bool droppedItem = false;
     public Constants.People personType;
     public GameObject itemPrefab;
     public LayerMask groundLayer;
 
-    public void Init( float walkingSpeed, bool walkingLeft, Constants.People personType, Constants.Outfit outfitType, Constants.Shoe shoeType ) {
+    public void Init( Leg otherLeg, float walkingSpeed, bool walkingLeft, Constants.People personType, float movementX ) {
+        this.otherLeg = otherLeg;
         this.walkingSpeed = walkingSpeed;
         this.walkingLeft = walkingLeft;
         this.personType = personType;
+        this.movementX = movementX;
 
         // TODO Use renderer to use outfit and shoe
+        // (Constants.Outfit outfit, Constants.Shoe shoe) = Constants.personToOutfit[personType];
 
         _Start();
     }
@@ -68,9 +69,6 @@ public class Leg : MonoBehaviour {
                 case State.FALLING:
                     FallingUpdate();
                     break;
-                case State.GROUNDED:
-                    GroundedUpdate();
-                    break;
                 case State.RISING:
                     RisingUpdate();
                     break;
@@ -85,24 +83,8 @@ public class Leg : MonoBehaviour {
 
             rigidBody.velocity = new Vector2( 0, 0 );
             currState = State.GROUNDED;
-            timeHitGround = Time.fixedTime;
 
-            if (!droppedItem && UnityEngine.Random.value < 1f &&
-                ((walkingLeft && transform.position.x > 0) ||
-                (!walkingLeft && transform.position.x < 0))) {
-                DropItem();
-            }
-        }
-    }
-
-    private void GroundedUpdate() {
-        float timeSinceLanded = Time.fixedTime - timeHitGround;
-        if ( timeSinceLanded > secondsSpentOnGround ) {
-            currState = State.RISING;
-            Vector2 velocityVector = new Vector2( walkingLeft ? -movementX : movementX, movementY );
-            velocityVector.Normalize();
-            rigidBody.velocity = velocityVector * walkingSpeed;
-            movementStartX = transform.position.x;
+            otherLeg.StartRising();
         }
     }
 
@@ -116,16 +98,35 @@ public class Leg : MonoBehaviour {
         }
 
         Vector3 viewPos = Camera.main.WorldToViewportPoint( transform.position );
-        if ((walkingLeft && viewPos.x < -0.1f) ||
-            (!walkingLeft && viewPos.x > 1.1f)) {
+        if ((walkingLeft && viewPos.x < -0.2f) ||
+            (!walkingLeft && viewPos.x > 1.2f)) {
+            otherLeg.StartRising();
             Destroy( gameObject );
         }
     }
 
+    public void StartRising() {
+        if ( currState == State.GROUNDED ) {
+            currState = State.RISING;
+            Vector2 velocityVector = new Vector2( walkingLeft ? -movementX : movementX, movementY );
+            velocityVector.Normalize();
+            rigidBody.velocity = velocityVector * walkingSpeed;
+            movementStartX = transform.position.x;
+
+            DropItem();
+        }
+    }
+
     private void DropItem() {
-        GameObject item = Instantiate(itemPrefab, new Vector3(transform.position.x, Constants.OFFSCREEN_Y + 1), Quaternion.identity);
-        (item.GetComponent<Item>() as Item).Init(Constants.personToItem[personType]);
-        droppedItem = true;
+        if (!droppedItem && UnityEngine.Random.value < itemProbability &&
+            ((walkingLeft && (transform.position.x > 0 && transform.position.x < Constants.OFFSCREEN_X)) ||
+            (!walkingLeft && (transform.position.x < 0 && transform.position.x > -Constants.OFFSCREEN_X)))) {
+
+            GameObject item = Instantiate(itemPrefab, new Vector3(transform.position.x, Constants.OFFSCREEN_Y + 1), Quaternion.identity);
+            (item.GetComponent<Item>() as Item).Init(Constants.personToItem[personType]);
+            droppedItem = true;
+            otherLeg.droppedItem = true;
+        }
     }
 
     public void ToggleShoeCollider(bool enabled) {
