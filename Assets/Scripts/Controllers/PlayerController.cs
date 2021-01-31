@@ -60,6 +60,10 @@ public class PlayerController : MonoBehaviour {
         CheckForJump();
         BetterJump();
         CheckForPickUpOrDrop();
+
+        if ( hasDied() ) {
+            GameController.instance.gameOver = true;
+        }
 	}
 
     void Move() {
@@ -203,9 +207,7 @@ public class PlayerController : MonoBehaviour {
         else if (other.gameObject.CompareTag("Shoe") && state == State.GROUNDED) {
             if (IsOnGround()) {
                 float delta = Time.fixedTime - timeHit;
-                Debug.Log( delta );
                 if ( delta > hitCoolDown ) {
-                    Debug.Log( "Took Damage!" );
                     takeDmg();
                     timeHit = Time.fixedTime;
                 }
