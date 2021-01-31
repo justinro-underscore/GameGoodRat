@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour {
     void OnBecameInvisible() {
         rb2d.velocity = new Vector2(rb2d.velocity.x, 1);
         if (state == State.PANT_LEG) {
+            DropOffItem();
             JumpOffLeg();
         }
         state = State.OFF_SCREEN;
@@ -93,6 +94,19 @@ public class PlayerController : MonoBehaviour {
 
     void OnBecameVisible() {
         state = State.GROUNDED;
+    }
+    
+    void DropOffItem() {
+        if (collectedItem == null) {
+            return;
+        }
+
+        GameController.instance.DropOffItem(collectedItem.gameObject, attachedLeg.transform.parent.gameObject);
+
+        overItems.Remove(collectedItem.GetComponent<Collider2D>() as Collider2D);
+        Destroy(collectedItem);
+        collectedItem = null;
+        UIController.instance.SetText("None", UIController.TextObject.ITEM_TEXT);
     }
 
     bool IsOnGround() {

@@ -37,7 +37,6 @@ public class Leg : MonoBehaviour {
     };
 
     private State currState;
-    private Constants.People personType;
 
     private float walkingSpeed;
     private bool walkingLeft;
@@ -47,6 +46,7 @@ public class Leg : MonoBehaviour {
     private float timeHitGround = 0f;
     private float timeStartedRising = 0f;
 
+    public Constants.People personType;
     public GameObject itemPrefab;
     public LayerMask groundLayer;
 
@@ -99,7 +99,9 @@ public class Leg : MonoBehaviour {
             currState = State.GROUNDED;
             timeHitGround = Time.fixedTime;
 
-            if (!droppedItem && UnityEngine.Random.value < 0.4f) {
+            if (!droppedItem && UnityEngine.Random.value < 1f &&
+                ((walkingLeft && transform.position.x > 0) ||
+                (!walkingLeft && transform.position.x < 0))) {
                 DropItem();
             }
         }
@@ -107,9 +109,8 @@ public class Leg : MonoBehaviour {
 
     private void DropItem() {
         GameObject item = Instantiate(itemPrefab, new Vector3(transform.position.x, Constants.OFFSCREEN_Y + 1), Quaternion.identity);
-        Array itemTypes = Enum.GetValues(typeof(Constants.Items));
-        Constants.Items itemType = (Constants.Items)itemTypes.GetValue((int)Mathf.Floor(UnityEngine.Random.value * itemTypes.Length));
-        (item.GetComponent<Item>() as Item).Init(itemType);
+        (item.GetComponent<Item>() as Item).Init(Constants.personToItem[personType]);
+        droppedItem = true;
     }
 
     private void GroundedUpdate() {

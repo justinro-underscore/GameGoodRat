@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
+    public static GameController instance = null;
+
     private int score;
 
     public GameObject playerPrefab;
@@ -12,6 +14,14 @@ public class GameController : MonoBehaviour {
     public GameObject walkerPrefab;
 
     void Start() {
+        if (instance == null) {
+            instance = this;
+        }
+        else if (instance != this) {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+
         SpawnWalker();
     }
 
@@ -20,6 +30,18 @@ public class GameController : MonoBehaviour {
     }
 
     void StartGame() {
+    }
+
+    public void DropOffItem(GameObject itemObject, GameObject legObject) {
+        Constants.Items itemType = (itemObject.GetComponent<Item>() as Item).itemType;
+        Constants.People personType = (legObject.GetComponent<Leg>() as Leg).personType;
+
+        if (Constants.personToItem[personType] == itemType) {
+            Debug.Log("Yay!");
+        }
+        else {
+            Debug.Log("Nooooo");
+        }
     }
 
     public void SpawnWalker() {

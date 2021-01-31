@@ -58,18 +58,18 @@ public class Constants {
         SHACKLES
     };
 
-    static public IDictionary<Items, People> itemToPerson = new Dictionary<Items, People>() {
-        {Items.SIX_SHOOTER, People.COWBOY},
-        {Items.BRIEFCASE, People.BUSINESS_MAN},
-        {Items.WEDDING_RING, People.BRIDE},
-        {Items.PHONE, People.GUY},
-        {Items.ICE_CREAM, People.KID},
-        {Items.TEDDY_BEAR, People.SLEEPY_PERSON},
-        {Items.SUNSCREEN, People.BEACH_GOER},
-        {Items.DOG_TAGS, People.ARMY_PERSON},
-        {Items.WHEAT, People.FARMER},
-        {Items.PURSE, People.GIRL},
-        {Items.PRISON_KEY, People.PRISONER}
+    static public IDictionary<People, Items> personToItem = new Dictionary<People, Items>() {
+        {People.COWBOY, Items.SIX_SHOOTER},
+        {People.BUSINESS_MAN, Items.BRIEFCASE},
+        {People.BRIDE, Items.WEDDING_RING},
+        {People.GUY, Items.PHONE},
+        {People.KID, Items.ICE_CREAM},
+        {People.SLEEPY_PERSON, Items.TEDDY_BEAR},
+        {People.BEACH_GOER, Items.SUNSCREEN},
+        {People.ARMY_PERSON, Items.DOG_TAGS},
+        {People.FARMER, Items.WHEAT},
+        {People.GIRL, Items.PURSE},
+        {People.PRISONER, Items.PRISON_KEY}
     };
 
     static public IDictionary<People, (Outfit, Shoe)> personToOutfit = new Dictionary<People, (Outfit, Shoe)>() {
