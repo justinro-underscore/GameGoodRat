@@ -8,10 +8,13 @@ public class GameController : MonoBehaviour {
     public static GameController instance = null;
 
     private int score;
+    private string playerInitials;
 
     public GameObject playerPrefab;
     public GameObject itemPrefab;
     public GameObject walkerPrefab;
+
+    public bool gameOver = false;
 
     void Start() {
         if (instance == null) {
@@ -22,11 +25,20 @@ public class GameController : MonoBehaviour {
         }
         DontDestroyOnLoad(gameObject);
 
+        score = 0;
+        playerInitials = "AAA";
+
         SpawnWalker();
     }
 
     void Update() {
-        // UIController.instance.SetText(DateTime.Now.Second.ToString(), UIController.TextObject.SCORE_TEXT);
+        if ( false == gameOver ) {
+            UIController.instance.SetText( score.ToString(), UIController.TextObject.SCORE_TEXT );
+        } else {
+            SceneController.LoadLevel( "HighScore" );
+            HighScoreController.hsInstance.ShowHighScore( score );
+            Destroy( this.gameObject );
+        }
     }
 
     void StartGame() {
@@ -37,10 +49,11 @@ public class GameController : MonoBehaviour {
         Constants.People personType = (legObject.GetComponent<Leg>() as Leg).personType;
 
         if (Constants.personToItem[personType] == itemType) {
-            Debug.Log("Yay!");
+            // TODO: make certain items worth more / store point val in item
+            score += 100;
         }
         else {
-            Debug.Log("Nooooo");
+            score -= 50;
         }
     }
 

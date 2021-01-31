@@ -48,6 +48,8 @@ public class SceneController : MonoBehaviour {
     }
 
     public static void LoadLevel( string levelName ) {
-        SceneManager.LoadScene( levelName );
+        if ( levelName != SceneManager.GetActiveScene().name ) {
+            SceneManager.LoadScene( levelName );
+        }
     }
 }

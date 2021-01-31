@@ -49,6 +49,12 @@ public class HighScoreController : MonoBehaviour {
                 bool moveRight = Input.GetKeyDown( KeyCode.RightArrow );
                 MoveCursor( moveRight );
             }
+
+            if ( Input.GetKeyDown( KeyCode.Return ) ) {
+                running = false;
+                SceneController.LoadLevel( "LeaderBoard" );
+                Destroy( this );
+            }
         }
     }
 
