@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour {
     private float hitCoolDown = 2f;
     private float timeHit = 0f;
 
+    private static bool isRunning = false;
+
     protected void Start() {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -58,13 +60,15 @@ public class PlayerController : MonoBehaviour {
     }
 
 	void Update () {
-        Move();
-        CheckForJump();
-        BetterJump();
-        CheckForPickUpOrDrop();
+        if ( isRunning ) {
+            Move();
+            CheckForJump();
+            BetterJump();
+            CheckForPickUpOrDrop();
 
-        if ( hasDied() ) {
-            GameController.instance.gameOver = true;
+            if ( hasDied() ) {
+                GameController.instance.gameOver = true;
+            }
         }
 
         animator.SetFloat("Horizontal", state == State.GROUNDED ? rb2d.velocity.x : rb2d.velocity.y);
@@ -265,13 +269,11 @@ public class PlayerController : MonoBehaviour {
         rb2d.AddForce( transform.up * 650 + transform.right * 650 );
     }
 
-    void checkForLeg() {
-        if ( Input.GetKeyDown( KeyCode.Space ) ) {
-            if ( isOnLeg ) {
-                // TODO: drop code
-            } else {
-                // TODO: check to see if leg is nearby? then attach to it?
-            }
-        }
+    public static void StartGame() {
+        isRunning = true;
+    }
+
+    public static void StopGame() {
+        isRunning = false;
     }
 }

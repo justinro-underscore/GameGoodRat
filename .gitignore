@@ -26,6 +26,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Tokens
+.Tokens/
+
 # Gradle cache directory
 .gradle/
 

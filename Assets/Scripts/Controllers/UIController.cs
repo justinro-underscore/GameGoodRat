@@ -8,7 +8,11 @@ public class UIController : MonoBehaviour {
     public enum TextObject {
         ITEM_TEXT,
         SCORE_TEXT,
-        HI_SCORE_TEXT
+        HI_SCORE_TEXT,
+        USER_HIGH_SCORE_TEXT,
+        PLAYER_INITIALS_TEXT,
+        LEADERBOARD_SCORE_TEXT,
+        LEADERBOARD_TEXT
     }
     
     public static UIController instance = null; // So this instance can be used in other classes
@@ -17,6 +21,12 @@ public class UIController : MonoBehaviour {
 
     public TMP_Text scoreText;
     public TMP_Text hiScoreText;
+
+    public TMP_Text userHighScoreText;
+    public TMP_Text playerInitialsText;
+
+    public TMP_Text leaderBoardScoreText;
+    public TMP_Text leaderBoardText;
 
     public GameObject heartGameObject;
     private List<GameObject> hearts;
@@ -50,6 +60,18 @@ public class UIController : MonoBehaviour {
                 break;
             case TextObject.HI_SCORE_TEXT:
                 textObj = hiScoreText;
+                break;
+            case TextObject.USER_HIGH_SCORE_TEXT:
+                textObj = userHighScoreText;
+                break;
+            case TextObject.PLAYER_INITIALS_TEXT:
+                textObj = playerInitialsText;
+                break;
+            case TextObject.LEADERBOARD_SCORE_TEXT:
+                textObj = leaderBoardScoreText;
+                break;
+            case TextObject.LEADERBOARD_TEXT:
+                textObj = leaderBoardText;
                 break;
         }
         textObj.text = text;
