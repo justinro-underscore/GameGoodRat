@@ -74,12 +74,16 @@ public class GameController : MonoBehaviour {
     }
 
     void StartGame() {
+        gameOver = false;
+        score = 0;
         numLegs = minNumberOfLegs * 2;
         walkerSpawnerTime = startWalkerSpawnerTime;
         currNumLegs = 0;
         rat.SetActive(true);
+        rat.GetComponent<PlayerController>()._Start();
         rat.transform.position = new Vector2(0, 0);
         panelText.SetActive(true);
+        SoundController.instance.StartMusic();
         Invoke("TrySpawningWalker", 0.5f);
     }
 
@@ -143,6 +147,11 @@ public class GameController : MonoBehaviour {
         if ( Input.GetKeyDown( KeyCode.Return ) ) {
             rat.SetActive(false);
             panelText.SetActive(false);
+            GameObject[] legs = GameObject.FindGameObjectsWithTag("FullLeg");
+            foreach(GameObject leg in legs) {
+                GameObject.Destroy(leg);
+            }
+
             SceneController.LoadLevel( SceneController.Level.MAIN_MENU );
             LeaderBoardController.lbInstance.Reset();
 
@@ -179,7 +188,6 @@ public class GameController : MonoBehaviour {
         foreach ( Score highScore in LeaderBoardController.lbInstance.GetCurrentScores() ) {
             if ( score > highScore.score ) {
                 isHighScore = true;
-                break;
             }   
         }
 

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 
     private bool isOnLeg = false;
 
-    private int lives = 3;
+    public int lives = 3;
 
     private float hitCoolDown = 2f;
     private float timeHit = 0f;
@@ -50,10 +50,15 @@ public class PlayerController : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         renderer = GetComponent<SpriteRenderer>();
+        _Start();
+    }
+
+    public void _Start() {
         overItems = new List<Collider2D>();
         overLegs = new List<Collider2D>();
         state = State.GROUNDED;
 
+        lives = 3;
         for ( int i = 0; i < lives; i++ ) {
             UIController.instance.SetHearts( false );
         }

@@ -7,6 +7,7 @@ TagManager:
   - Item
   - Shoe
   - Pants
+  - FullLeg
   layers:
   - Default
   - TransparentFX
