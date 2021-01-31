@@ -36,11 +36,20 @@ public class PlayerController : MonoBehaviour {
 
     private bool isOnLeg = false;
 
+    private int lives = 3;
+
+    private float hitCoolDown = 2f;
+    private float timeHit = 0f;
+
     protected void Start() {
         rb2d = GetComponent<Rigidbody2D>();
         overItems = new List<Collider2D>();
         overLegs = new List<Collider2D>();
         state = State.GROUNDED;
+
+        for ( int i = 0; i < lives; i++ ) {
+            UIController.instance.SetHearts( false );
+        }
     }
 
 	void Update () {
@@ -144,6 +153,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    bool hasDied() {
+        return ( lives <= 0 );
+    }
+
     void OnTriggerEnter2D (Collider2D other) {
         if (other.gameObject.CompareTag("Item")) {
             overItems.Add(other);
@@ -153,7 +166,13 @@ public class PlayerController : MonoBehaviour {
         }
         else if (other.gameObject.CompareTag("Shoe") && state == State.GROUNDED) {
             if (IsOnGround()) {
-                Debug.Log("DEAD");
+                float delta = Time.fixedTime - timeHit;
+                Debug.Log( delta );
+                if ( delta > hitCoolDown ) {
+                    Debug.Log( "Took Damage!" );
+                    takeDmg();
+                    timeHit = Time.fixedTime;
+                }
             }
         }
     }
@@ -165,6 +184,14 @@ public class PlayerController : MonoBehaviour {
         else if (other.gameObject.CompareTag("Leg")) {
             overLegs.Remove(other);
         }
+    }
+
+    private void takeDmg() {
+        lives -= 1;
+        UIController.instance.SetHearts( true );
+
+        // bounce back (augment this with direction?)
+        rb2d.AddForce( transform.up * 650 + transform.right * 650 );
     }
 
     void checkForLeg() {
