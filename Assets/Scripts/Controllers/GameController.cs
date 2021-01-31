@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour {
 
     private int score;
     private string playerInitials;
+    
+    public GameObject rat;
 
     public GameObject playerPrefab;
     public GameObject itemPrefab;
@@ -74,6 +76,7 @@ public class GameController : MonoBehaviour {
         numLegs = minNumberOfLegs * 2;
         walkerSpawnerTime = startWalkerSpawnerTime;
         currNumLegs = 0;
+        rat.SetActive(true);
         Invoke("TrySpawningWalker", 0.5f);
     }
 
