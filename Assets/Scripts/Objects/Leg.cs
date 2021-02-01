@@ -143,6 +143,7 @@ public class Leg : MonoBehaviour {
             (item.GetComponent<Item>() as Item).Init(Constants.personToItem[personType]);
             droppedItem = true;
             otherLeg.droppedItem = true;
+            SoundController.instance.PlaySingle("itemCorrect");
         }
     }
 
