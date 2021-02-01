@@ -57,6 +57,11 @@ public class PlayerController : MonoBehaviour {
         overItems = new List<Collider2D>();
         overLegs = new List<Collider2D>();
         state = State.GROUNDED;
+        transform.Rotate(new Vector3(0, 0, 45));
+        float rot = transform.rotation.z;
+        if (rot != 0) {
+            transform.rotation = Quaternion.identity;
+        }
 
         lives = 3;
         for ( int i = 0; i < lives; i++ ) {
@@ -266,6 +271,8 @@ public class PlayerController : MonoBehaviour {
             SoundController.instance.PlaySingle("hurt");
         }
         else {
+            transform.Rotate(new Vector3(0, 0, 180));
+
             SoundController.instance.StopMusic();
             SoundController.instance.PlaySingle("death");
         }
