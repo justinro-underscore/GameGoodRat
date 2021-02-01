@@ -164,6 +164,10 @@ public class GameController : MonoBehaviour {
             foreach(GameObject leg in legs) {
                 GameObject.Destroy(leg);
             }
+            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+            foreach(GameObject item in items) {
+                GameObject.Destroy(item);
+            }
 
             SceneController.LoadLevel( SceneController.Level.MAIN_MENU );
             LeaderBoardController.lbInstance.Reset();
