@@ -179,11 +179,11 @@ public class GameController : MonoBehaviour {
 
         if (Constants.personToItem[personType] == itemType) {
             // TODO: make certain items worth more / store point val in item
-            SoundController.instance.PlaySingle("itemCorrect");
+            SoundController.instance.PlaySingle("thanks");
             score += 100;
         }
         else {
-            SoundController.instance.PlaySingle("itemWrong");
+            SoundController.instance.PlaySingle("scared");
             score -= 50;
         }
         UIController.instance.SetText( score.ToString(), UIController.TextObject.SCORE_TEXT );

@@ -18,6 +18,9 @@ public class SoundController : MonoBehaviour {
     public AudioClip boom;
     public AudioClip hurt;
 
+    public List<AudioClip> scared;
+    public List<AudioClip> thanks;
+
     private Hashtable soundEffects;
 
     void Awake ()
@@ -48,7 +51,18 @@ public class SoundController : MonoBehaviour {
 
     public void PlaySingle(string clipName)
     {
-        AudioClip clip = (AudioClip)soundEffects[clipName];
+        AudioClip clip;
+        if (clipName == "scared") {
+            int index = (int)Mathf.Floor(UnityEngine.Random.Range(0, scared.Count));
+            clip = scared[index];
+        }
+        else if (clipName == "thanks") {
+            int index = (int)Mathf.Floor(UnityEngine.Random.Range(0, thanks.Count));
+            clip = thanks[index];
+        }
+        else {
+            clip = (AudioClip)soundEffects[clipName];
+        }
 
         if(!efxSource.isPlaying)
         {

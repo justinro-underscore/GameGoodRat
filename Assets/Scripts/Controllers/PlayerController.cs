@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour {
     void OnBecameInvisible() {
         if (state == State.PANT_LEG) {
             if (!DropOffItem()) {
-                SoundController.instance.PlaySingle("jumpSound");
+                SoundController.instance.PlaySingle("scared");
             }
             JumpOffLeg();
         }
