@@ -87,7 +87,6 @@ public class GameController : MonoBehaviour {
         rat.GetComponent<PlayerController>()._Start();
         rat.transform.position = new Vector2(0, 0);
         panelText.SetActive(true);
-        SoundController.instance.StartMusic();
         Invoke("TrySpawningWalker", 0.5f);
     }
 
@@ -169,6 +168,7 @@ public class GameController : MonoBehaviour {
             SceneController.LoadLevel( SceneController.Level.MAIN_MENU );
             LeaderBoardController.lbInstance.Reset();
 
+            SoundController.instance.StartMusic();
             menuBG.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         }
     }
